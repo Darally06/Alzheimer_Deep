@@ -4,5 +4,4 @@
 format: jb-book
 root: intro
 chapters:
-- file: ETL_IMAGES
 - file: EDA
