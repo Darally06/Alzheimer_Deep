@@ -1,0 +1,1052 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>PREPROCESAMIENTO DE IMÁGENES &#8212; Alzheimer</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '3_PRO_images';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Modelos para imágenes" href="Models_IMAGES.html" />
+    <link rel="prev" title="Análisis Exploratorio de Datos" href="2_EDA.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Alzheimer</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    MRI - Deep learning solutions fot dementia Disease prediction
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2_EDA.html"><em><strong>Análisis Exploratorio de Datos</strong></em></a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>PREPROCESAMIENTO DE IMÁGENES</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Models_IMAGES.html"><strong>Modelos para imágenes</strong></a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F3_PRO_images.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/3_PRO_images.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>PREPROCESAMIENTO DE IMÁGENES</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rutas-a-archivos-y-estandarizacion-de-variables">Rutas a archivos y estandarización de variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#valores-nulos-e-imputacion">Valores nulos e imputación</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estandarizacion-de-las-imagenes">Estandarización de las imágenes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crear-archivos-de-atributos">Crear archivos de atributos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocesamiento">Preprocesamiento</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="preprocesamiento-de-imagenes">
+<h1><strong>PREPROCESAMIENTO DE IMÁGENES</strong><a class="headerlink" href="#preprocesamiento-de-imagenes" title="Link to this heading">#</a></h1>
+<div class="cell tag_remove-input docutils container">
+</div>
+<div class="cell tag_hide-cell docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell content</p>
+<p class="expanded admonition-title">Hide code cell content</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># [Config] Rutas</span>
+<span class="c1"># Ajusta estas rutas según tu estructura</span>
+<span class="n">BASE_IMAGES_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;C:\Users\Hp\MACHINE\MRI\Datos\IMAGES&quot;</span><span class="p">)</span>   
+<span class="n">NOTEBOOKS_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;C:\Users\Hp\MACHINE\MRI\notebooks&quot;</span><span class="p">)</span>
+<span class="n">OUT_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;C:\Users\Hp\MACHINE\MRI\datos\procesadas&quot;</span><span class="p">)</span>      
+<span class="n">OUT_DIR</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;./Data/ADNI_Images.csv&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<section id="rutas-a-archivos-y-estandarizacion-de-variables">
+<h2>Rutas a archivos y estandarización de variables<a class="headerlink" href="#rutas-a-archivos-y-estandarizacion-de-variables" title="Link to this heading">#</a></h2>
+<hr class="docutils" />
+<ul class="simple">
+<li><ol class="arabic simple">
+<li><p>Verificar y normalizar rutas a archivos .nii</p></li>
+</ol>
+</li>
+</ul>
+<div class="cell tag_remove-input docutils container">
+</div>
+<hr class="docutils" />
+<ul class="simple">
+<li><ol class="arabic simple" start="2">
+<li><p>Crear identificadores y nombres de salida</p></li>
+</ol>
+</li>
+</ul>
+<div class="cell tag_hide-cell docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell content</p>
+<p class="expanded admonition-title">Hide code cell content</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Normalizamos campos clave</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;sujeto_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;sujeto_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;VISCODE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;VISCODE&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">parse_date</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> 
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">NaT</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="n">datetime</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="c1"># probar distintos formatos comunes</span>
+    <span class="k">for</span> <span class="n">fmt</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;%Y/%m/</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">-%m-%Y&quot;</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%S&quot;</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">fmt</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">pass</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Fecha&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;EXAMDATE&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">parse_date</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell content</p>
+<p class="expanded admonition-title">Hide code cell content</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Crear id_visita</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;id_visita&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;sujeto_id&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;VISCODE&#39;</span><span class="p">]</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">safe_fname</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="c1"># quita espacios, reemplaza / : etc</span>
+    <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">c</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">isalnum</span><span class="p">()</span> <span class="ow">or</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;_&quot;</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">s</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">make_output_fname</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
+    <span class="n">subj</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;sujeto_id&#39;</span><span class="p">]</span>
+    <span class="n">vis</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;VISCODE&#39;</span><span class="p">]</span>
+    <span class="n">examdate</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Fecha&#39;</span><span class="p">]</span>
+    <span class="n">exam_str</span> <span class="o">=</span> <span class="n">examdate</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="n">examdate</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;noDate&quot;</span>
+    <span class="n">arch</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;archivo&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">stem</span>
+    <span class="n">fname</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">subj</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">exam_str</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">vis</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">arch</span><span class="si">}</span><span class="s2">.npy&quot;</span>
+    <span class="k">return</span> <span class="n">safe_fname</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+
+<span class="c1"># Crear rutas de salida</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;fname_out&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">make_output_fname</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;ruta_npy&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;fname_out&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">OUT_DIR</span> <span class="o">/</span> <span class="n">s</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<hr class="docutils" />
+<ul class="simple">
+<li><ol class="arabic simple" start="3">
+<li><p>Construir etiquetas binarias</p></li>
+</ol>
+</li>
+</ul>
+<div class="cell tag_hide-cell docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell content</p>
+<p class="expanded admonition-title">Hide code cell content</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Construir label por sujeto:</span>
+<span class="c1"># Regla: si sujeto presenta transición de non-dementia -&gt; dementia en algún vis &lt;=36 meses -&gt; label 1.</span>
+<span class="c1"># Implementación simplificada:</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">subjects</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;sujeto_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">subj</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">subjects</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Calculando labels por sujeto&quot;</span><span class="p">):</span>
+    <span class="n">subdf</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;sujeto_id&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">subj</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="c1"># orden por vis_month (si NaN, orden por Fecha)</span>
+    <span class="k">if</span> <span class="n">subdf</span><span class="p">[</span><span class="s1">&#39;vis_month&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+        <span class="n">subdf</span> <span class="o">=</span> <span class="n">subdf</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;vis_month&#39;</span><span class="p">,</span><span class="s1">&#39;Fecha&#39;</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">subdf</span> <span class="o">=</span> <span class="n">subdf</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="c1"># buscamos primer visita con is_dementia==1 y su mes</span>
+    <span class="c1"># y primer visita con is_dementia==0 (baseline non-dementia)</span>
+    <span class="n">baseline_non_d</span> <span class="o">=</span> <span class="n">subdf</span><span class="p">[</span><span class="n">subdf</span><span class="p">[</span><span class="s1">&#39;is_dementia&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">first_non_d</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">baseline_non_d</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="c1"># preferir VISCODE &#39;bl&#39; si existe</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">baseline_non_d</span><span class="p">[</span><span class="s1">&#39;VISCODE&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">==</span><span class="s1">&#39;bl&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+            <span class="n">first_non_d</span> <span class="o">=</span> <span class="n">baseline_non_d</span><span class="p">[</span><span class="n">baseline_non_d</span><span class="p">[</span><span class="s1">&#39;VISCODE&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">==</span><span class="s1">&#39;bl&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">first_non_d</span> <span class="o">=</span> <span class="n">baseline_non_d</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="c1"># buscar conversion</span>
+    <span class="n">converted</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">conversion_info</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="c1"># consideramos cualquier visita con is_dementia==1 y vis_month &lt;= 36</span>
+    <span class="n">dem_vis</span> <span class="o">=</span> <span class="n">subdf</span><span class="p">[</span><span class="n">subdf</span><span class="p">[</span><span class="s1">&#39;is_dementia&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">dem_vis</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="c1"># si hay baseline non-dementia, la conversión debe ocurrir tras baseline</span>
+        <span class="k">if</span> <span class="n">first_non_d</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># buscar dem_vis cuya month &gt;= baseline month y &lt;=36</span>
+            <span class="n">base_month</span> <span class="o">=</span> <span class="n">first_non_d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;vis_month&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="n">first_non_d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;vis_month&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">))</span> <span class="k">else</span> <span class="mi">0</span>
+            <span class="c1"># candidate dem_vis posteriores</span>
+            <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">dem_vis</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+                <span class="n">month</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;vis_month&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">month</span><span class="p">):</span>
+                    <span class="c1"># si no hay month, intentar por fecha diff</span>
+                    <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="n">first_non_d</span><span class="p">[</span><span class="s1">&#39;Fecha&#39;</span><span class="p">])</span> <span class="ow">and</span> <span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;Fecha&#39;</span><span class="p">]):</span>
+                        <span class="n">diff_months</span> <span class="o">=</span> <span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;Fecha&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">year</span> <span class="o">-</span> <span class="n">first_non_d</span><span class="p">[</span><span class="s1">&#39;Fecha&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">year</span><span class="p">)</span><span class="o">*</span><span class="mi">12</span> <span class="o">+</span> <span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;Fecha&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">month</span> <span class="o">-</span> <span class="n">first_non_d</span><span class="p">[</span><span class="s1">&#39;Fecha&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">month</span><span class="p">)</span>
+                        <span class="n">month</span> <span class="o">=</span> <span class="n">diff_months</span>
+                <span class="c1"># now check range</span>
+                <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="n">month</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">month</span> <span class="o">&gt;=</span> <span class="n">base_month</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">month</span> <span class="o">&lt;=</span> <span class="mi">36</span><span class="p">):</span>
+                    <span class="n">converted</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="n">conversion_info</span> <span class="o">=</span> <span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;VISCODE&#39;</span><span class="p">],</span> <span class="n">month</span><span class="p">,</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;Fecha&#39;</span><span class="p">])</span>
+                    <span class="k">break</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># No baseline non-dementia conocido: fallback -&gt; if any dem_vis within &lt;=36 -&gt; label may be ambiguous:</span>
+            <span class="c1"># we&#39;ll mark converted if there&#39;s any dem_vis with vis_month&lt;=36</span>
+            <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">dem_vis</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+                <span class="n">month</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;vis_month&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="n">month</span><span class="p">)</span> <span class="ow">and</span> <span class="n">month</span> <span class="o">&lt;=</span> <span class="mi">36</span><span class="p">:</span>
+                    <span class="n">converted</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="n">conversion_info</span> <span class="o">=</span> <span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;VISCODE&#39;</span><span class="p">],</span> <span class="n">month</span><span class="p">,</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;Fecha&#39;</span><span class="p">])</span>
+                    <span class="k">break</span>
+    <span class="c1"># Save label for all rows of this subject (we attach label at image-row level later)</span>
+    <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;sujeto_id&#39;</span><span class="p">:</span> <span class="n">subj</span><span class="p">,</span> <span class="s1">&#39;label_progresion&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">converted</span><span class="p">),</span> <span class="s1">&#39;conversion_info&#39;</span><span class="p">:</span> <span class="n">conversion_info</span><span class="p">})</span>
+
+<span class="n">labels_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Labels por sujeto (ejemplo):&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">labels_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Calculando labels por sujeto:   0%|                                                             | 0/51 [00:00&lt;?, ?it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Calculando labels por sujeto:  53%|███████████████████████████                        | 27/51 [00:00&lt;00:00, 263.75it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Calculando labels por sujeto: 100%|███████████████████████████████████████████████████| 51/51 [00:00&lt;00:00, 269.07it/s]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Labels por sujeto (ejemplo):
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sujeto_id</th>
+      <th>label_progresion</th>
+      <th>conversion_info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>007_S_0101</td>
+      <td>1</td>
+      <td>(m24, 24, 2007-12-12 00:00:00)</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>007_S_0128</td>
+      <td>1</td>
+      <td>(m18, 18, 2007-08-20 00:00:00)</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>007_S_0249</td>
+      <td>1</td>
+      <td>(m12, 12, 2007-04-03 00:00:00)</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>013_S_0240</td>
+      <td>1</td>
+      <td>(m18, 18, 2007-10-31 00:00:00)</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>014_S_0169</td>
+      <td>0</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>018_S_0057</td>
+      <td>1</td>
+      <td>(m18, 18, 2007-08-21 00:00:00)</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>018_S_0080</td>
+      <td>0</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>018_S_0087</td>
+      <td>0</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>018_S_0142</td>
+      <td>0</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>018_S_0155</td>
+      <td>0</td>
+      <td>None</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</details>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Resumen labels (por sujeto):
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>count</th>
+    </tr>
+    <tr>
+      <th>label_progresion</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>29</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>22</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell tag_remove-input docutils container">
+</div>
+</section>
+<section id="valores-nulos-e-imputacion">
+<h2>Valores nulos e imputación<a class="headerlink" href="#valores-nulos-e-imputacion" title="Link to this heading">#</a></h2>
+<hr class="docutils" />
+<ul class="simple">
+<li><ol class="arabic simple">
+<li><p>Exploración de valores nulos</p></li>
+</ol>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Análisis de variables nulas </span>
+<span class="n">cognitivas</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;CDRSB&quot;</span><span class="p">,</span> <span class="c1">#&quot;Suma de cajas del Clinical Dementia Rating (CDR); mide la severidad de la demencia.&quot;,</span>
+    <span class="s2">&quot;MMSE&quot;</span><span class="p">,</span> <span class="c1">#&quot;Mini-Mental State Examination; evaluación global del estado cognitivo (máx. 30 puntos).&quot;,</span>
+    <span class="s2">&quot;ADAS13&quot;</span><span class="p">,</span> <span class="c1">#&quot;Alzheimer’s Disease Assessment Scale – 13 ítems; mide deterioro cognitivo en Alzheimer.&quot;,</span>
+    <span class="s2">&quot;FAQ&quot;</span><span class="p">,</span> <span class="c1">#&quot;Functional Activities Questionnaire; evalúa la capacidad funcional en actividades diarias.&quot;,</span>
+    <span class="s2">&quot;RAVLT_immediate&quot;</span><span class="p">,</span> <span class="c1"># &quot;Puntuación inmediata en la prueba verbal de aprendizaje (Rey Auditory Verbal Learning Test).&quot;,</span>
+    <span class="s2">&quot;RAVLT_learning&quot;</span><span class="p">,</span> <span class="c1"># &quot;Puntuación de aprendizaje acumulado en RAVLT; mide retención verbal.&quot;,</span>
+    <span class="s2">&quot;RAVLT_forgetting&quot;</span><span class="p">,</span> <span class="c1"># &quot;Índice de olvido en RAVLT; diferencia entre aprendizaje y recuerdo tardío.&quot;,</span>
+    <span class="s2">&quot;DIGITSCOR&quot;</span><span class="p">,</span> <span class="c1">#&quot;Digit Span Score; mide memoria de trabajo y atención mediante secuencias numéricas.&quot;,</span>
+    <span class="s2">&quot;TRABSCOR&quot;</span><span class="p">,</span> <span class="c1"># &quot;Trail Making Test B Score; evalúa función ejecutiva y flexibilidad cognitiva.&quot;,</span>
+<span class="p">]</span>
+<span class="n">volumen</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;Ventricles&quot;</span><span class="p">,</span> <span class="c1"># &quot;Volumen de los ventrículos cerebrales; puede indicar atrofia cerebral.&quot;,</span>
+    <span class="s2">&quot;Hippocampus&quot;</span><span class="p">,</span> <span class="c1"># &quot;Volumen del hipocampo; clave en memoria y afectado en Alzheimer.&quot;,</span>
+    <span class="s2">&quot;WholeBrain&quot;</span><span class="p">,</span> <span class="c1"># &quot;Volumen total del cerebro; útil para evaluar atrofia global.&quot;,</span>
+    <span class="s2">&quot;Entorhinal&quot;</span><span class="p">,</span> <span class="c1"># &quot;Volumen de la corteza entorrinal; región afectada tempranamente en Alzheimer.&quot;,</span>
+    <span class="s2">&quot;Fusiform&quot;</span><span class="p">,</span> <span class="c1">#&quot;Volumen del giro fusiforme; relacionado con reconocimiento visual.&quot;,</span>
+    <span class="s2">&quot;MidTemp&quot;</span><span class="p">,</span> <span class="c1"># &quot;Volumen del lóbulo temporal medio; implicado en memoria y procesamiento auditivo.&quot;,</span>
+    <span class="s2">&quot;ICV&quot;</span><span class="p">,</span> <span class="c1">#&quot;Volumen intracraneal total; usado para normalizar medidas volumétricas.&quot;</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--------------------------------------------------
+Valores nulos
+--------------------------------------------------
+Variables consideradas (cognitivas): 
+[&#39;CDRSB&#39;, &#39;MMSE&#39;, &#39;ADAS13&#39;, &#39;FAQ&#39;, &#39;RAVLT_immediate&#39;, &#39;RAVLT_learning&#39;, &#39;RAVLT_forgetting&#39;, &#39;DIGITSCOR&#39;, &#39;TRABSCOR&#39;]
+
+Resumen de nulos por variable:
+                  nulos  porcentaje
+FAQ                  31       11.11
+TRABSCOR             31       11.11
+CDRSB                30       10.75
+RAVLT_forgetting     30       10.75
+ADAS13               29       10.39
+RAVLT_learning       29       10.39
+RAVLT_immediate      29       10.39
+DIGITSCOR            29       10.39
+MMSE                 28       10.04
+
+Filas con al menos un nulo en cognitivas: 38
+Proporción total: 13.62%
+--------------------------------------------------
+Variables consideradas (volumen): 
+[&#39;Ventricles&#39;, &#39;Hippocampus&#39;, &#39;WholeBrain&#39;, &#39;Entorhinal&#39;, &#39;Fusiform&#39;, &#39;MidTemp&#39;, &#39;ICV&#39;]
+
+Resumen de nulos por variable:
+             nulos  porcentaje
+Hippocampus     67       24.01
+Fusiform        67       24.01
+Entorhinal      67       24.01
+MidTemp         67       24.01
+Ventricles      38       13.62
+WholeBrain      38       13.62
+ICV             38       13.62
+
+Filas con al menos un nulo en volumen: 67
+Proporción total: 24.01%
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Imputación
+--------------------------------------------------
+Variables numéricas para imputación (cognitivas):
+[&#39;CDRSB&#39;, &#39;MMSE&#39;, &#39;ADAS13&#39;, &#39;FAQ&#39;, &#39;RAVLT_immediate&#39;, &#39;RAVLT_learning&#39;, &#39;RAVLT_forgetting&#39;, &#39;DIGITSCOR&#39;, &#39;TRABSCOR&#39;]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✅ Imputación completada.
+--------------------------------------------------
+Variables numéricas para imputación (volumen):
+[&#39;Ventricles&#39;, &#39;Hippocampus&#39;, &#39;WholeBrain&#39;, &#39;Entorhinal&#39;, &#39;Fusiform&#39;, &#39;MidTemp&#39;, &#39;ICV&#39;]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✅ Imputación completada.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>------------------------------
+📁 DX con valores nulos:
+Registros con DX nulos: 28
+10.04% de los registros no tienen DX asignado.
+Diagnosticos nulos en las vistas: [&#39;m30&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="estandarizacion-de-las-imagenes">
+<h2>Estandarización de las imágenes<a class="headerlink" href="#estandarizacion-de-las-imagenes" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># === Plantilla base (más frecuente) ===</span>
+<span class="n">TARGET_SHAPE</span> <span class="o">=</span> <span class="p">(</span><span class="mi">160</span><span class="p">,</span> <span class="mi">192</span><span class="p">,</span> <span class="mi">192</span><span class="p">)</span>
+<span class="n">TARGET_VOXEL</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.2</span><span class="p">,</span> <span class="mf">0.9375</span><span class="p">,</span> <span class="mf">0.9375</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="crear-archivos-de-atributos">
+<h2>Crear archivos de atributos<a class="headerlink" href="#crear-archivos-de-atributos" title="Link to this heading">#</a></h2>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;sujeto_id&#39;, &#39;id_visita&#39;, &#39;Fecha&#39;, &#39;VISCODE&#39;, &#39;vis_month&#39;,
+       &#39;is_dementia&#39;, &#39;label_progresion&#39;, &#39;ruta_npy&#39;, &#39;AGE&#39;, &#39;Sexo&#39;,
+       &#39;Education&#39;, &#39;CDRSB_std&#39;, &#39;MMSE_std&#39;, &#39;ADAS13_std&#39;, &#39;FAQ_std&#39;,
+       &#39;RAVLT_immediate_std&#39;, &#39;RAVLT_learning_std&#39;, &#39;RAVLT_forgetting_std&#39;,
+       &#39;DIGITSCOR_std&#39;, &#39;TRABSCOR_std&#39;, &#39;Ventricles_std&#39;, &#39;Hippocampus_std&#39;,
+       &#39;WholeBrain_std&#39;, &#39;Entorhinal_std&#39;, &#39;Fusiform_std&#39;, &#39;MidTemp_std&#39;,
+       &#39;ICV_std&#39;],
+      dtype=&#39;object&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 279 entries, 0 to 278
+Data columns (total 27 columns):
+ #   Column                Non-Null Count  Dtype         
+---  ------                --------------  -----         
+ 0   sujeto_id             279 non-null    object        
+ 1   id_visita             279 non-null    object        
+ 2   Fecha                 279 non-null    datetime64[ns]
+ 3   VISCODE               279 non-null    object        
+ 4   vis_month             279 non-null    int64         
+ 5   is_dementia           251 non-null    float64       
+ 6   label_progresion      279 non-null    int64         
+ 7   ruta_npy              279 non-null    object        
+ 8   AGE                   279 non-null    float64       
+ 9   Sexo                  279 non-null    int64         
+ 10  Education             279 non-null    int64         
+ 11  CDRSB_std             279 non-null    float64       
+ 12  MMSE_std              279 non-null    float64       
+ 13  ADAS13_std            279 non-null    float64       
+ 14  FAQ_std               279 non-null    float64       
+ 15  RAVLT_immediate_std   279 non-null    float64       
+ 16  RAVLT_learning_std    279 non-null    float64       
+ 17  RAVLT_forgetting_std  279 non-null    float64       
+ 18  DIGITSCOR_std         279 non-null    float64       
+ 19  TRABSCOR_std          279 non-null    float64       
+ 20  Ventricles_std        279 non-null    float64       
+ 21  Hippocampus_std       279 non-null    float64       
+ 22  WholeBrain_std        279 non-null    float64       
+ 23  Entorhinal_std        279 non-null    float64       
+ 24  Fusiform_std          279 non-null    float64       
+ 25  MidTemp_std           279 non-null    float64       
+ 26  ICV_std               279 non-null    float64       
+dtypes: datetime64[ns](1), float64(18), int64(4), object(4)
+memory usage: 59.0+ KB
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="preprocesamiento">
+<h2>Preprocesamiento<a class="headerlink" href="#preprocesamiento" title="Link to this heading">#</a></h2>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Nulos por columna principal:
+                   0
+is_dementia       28
+label_progresion   0
+</pre></div>
+</div>
+</div>
+</div>
+<p>Los valores nulos están asociados a la visita del mes 30 de x sujetos (ver EDA). Estos valores no serán imputados para los primeros 3 modelos a probar.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Distribución de la variable objetivo:
+                  proportion
+label_progresion            
+0                      54.84
+1                      45.16
+
+Prueba Z-test: Z = -2.29, p-value = 0.0223
+</pre></div>
+</div>
+<img alt="_images/149a3b57fac27d56f0b6cab29045d8e51280bb8581ad48c3dae04e8422aa28b5.png" src="_images/149a3b57fac27d56f0b6cab29045d8e51280bb8581ad48c3dae04e8422aa28b5.png" />
+</div>
+</div>
+<p>Las clases de la variable objetivo están significativamente desbalanceadas. Se aplicará en cada modelo ponderación de clases, para no realizar replicación de imágenes que cambien la distribución real. La clase mayoritaria es que no hubo progresión de la enfermedad.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="2_EDA.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><em><strong>Análisis Exploratorio de Datos</strong></em></p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Models_IMAGES.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><strong>Modelos para imágenes</strong></p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rutas-a-archivos-y-estandarizacion-de-variables">Rutas a archivos y estandarización de variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#valores-nulos-e-imputacion">Valores nulos e imputación</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estandarizacion-de-las-imagenes">Estandarización de las imágenes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crear-archivos-de-atributos">Crear archivos de atributos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocesamiento">Preprocesamiento</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Daniella Guerra & Tawny Torres
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

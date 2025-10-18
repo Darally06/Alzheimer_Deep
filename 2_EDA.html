@@ -1,0 +1,2626 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Análisis Exploratorio de Datos &#8212; Alzheimer</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '2_EDA';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="PREPROCESAMIENTO DE IMÁGENES" href="3_PRO_images.html" />
+    <link rel="prev" title="MRI - Deep learning solutions fot dementia Disease prediction" href="intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Alzheimer</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    MRI - Deep learning solutions fot dementia Disease prediction
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#"><em><strong>Análisis Exploratorio de Datos</strong></em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="3_PRO_images.html"><strong>PREPROCESAMIENTO DE IMÁGENES</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Models_IMAGES.html"><strong>Modelos para imágenes</strong></a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F2_EDA.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/2_EDA.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Análisis Exploratorio de Datos</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descripcion-del-conjunto-de-datos"><strong>1. Descripción del conjunto de datos</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#propiedades-tecnicas-de-las-imagenes"><strong>2. Propiedades técnicas de las imágenes</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sobre-el-paciente"><strong>3. Sobre el paciente</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#progresion-clinica"><strong>4. Progresión clínica</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-bivariado"><strong>5. Análisis Bivariado</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evolucion-del-diagnostico-por-visita"><strong>6. Evolución del Diagnostico por Visita</strong></a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="analisis-exploratorio-de-datos">
+<h1><em><strong>Análisis Exploratorio de Datos</strong></em><a class="headerlink" href="#analisis-exploratorio-de-datos" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p><strong>Imágenes Médicas:</strong></p>
+<p>El conjunto de datos incluye imágenes médicas en formato NIfTI (.nii), ampliamente utilizado en neuroimagen para representar volúmenes tridimensionales del cerebro.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># [Config] Rutas</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;Data/ADNI_Images.csv&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="descripcion-del-conjunto-de-datos">
+<h2><strong>1. Descripción del conjunto de datos</strong><a class="headerlink" href="#descripcion-del-conjunto-de-datos" title="Link to this heading">#</a></h2>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>------------------------------
+📁 Información general:
+
+Dimensión: 279 Imágenes disponibles × 35 atributos
+
+Tipo de atributos: 
+float64           22
+object            11
+int64              1
+datetime64[ns]     1
+Name: count, dtype: int64
+------------------------------
+👦 51 sujetos en estudio
+</pre></div>
+</div>
+</div>
+</div>
+<p>El conjunto de datos esta compuesto por 279 imágenes asociadas a 51 sujetos, donde se dispone de multiples imágenes por paciente. En total, se registran 34 atributos por imagen.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>------------------------------
+📁 Valores nulos:
+Variables con valores nulos:
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Variable</th>
+      <th>Cantidad_nulos</th>
+      <th>Porcentaje_nulos</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Entorhinal</td>
+      <td>67</td>
+      <td>24.01</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>MidTemp</td>
+      <td>67</td>
+      <td>24.01</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Fusiform</td>
+      <td>67</td>
+      <td>24.01</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Hippocampus</td>
+      <td>67</td>
+      <td>24.01</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>WholeBrain</td>
+      <td>38</td>
+      <td>13.62</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Ventricles</td>
+      <td>38</td>
+      <td>13.62</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>ICV</td>
+      <td>38</td>
+      <td>13.62</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>TRABSCOR</td>
+      <td>31</td>
+      <td>11.11</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>FAQ</td>
+      <td>31</td>
+      <td>11.11</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>RAVLT_forgetting</td>
+      <td>30</td>
+      <td>10.75</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>CDRSB</td>
+      <td>30</td>
+      <td>10.75</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>RAVLT_immediate</td>
+      <td>29</td>
+      <td>10.39</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>ADAS13</td>
+      <td>29</td>
+      <td>10.39</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>RAVLT_learning</td>
+      <td>29</td>
+      <td>10.39</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>DIGITSCOR</td>
+      <td>29</td>
+      <td>10.39</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>DX</td>
+      <td>28</td>
+      <td>10.04</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>MMSE</td>
+      <td>28</td>
+      <td>10.04</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>------------------------------
+📁 DX con valores nulos:
+Registros con DX nulos: 28
+10.04% de los registros no tienen DX asignado.
+Diagnosticos nulos en las vistas: [30]
+------------------------------
+      sujeto_id  VISCODE   EXAMDATE   DX
+5    007_S_0101       30 2008-07-18  NaN
+12   007_S_0128       30 2008-08-20  NaN
+18   007_S_0249       30 2008-10-01  NaN
+29   014_S_0169       30 2008-09-16  NaN
+48   018_S_0142       30 2008-08-20  NaN
+54   018_S_0155       30 2008-10-06  NaN
+60   021_S_0141       30 2008-09-09  NaN
+72   021_S_0273       30 2008-10-13  NaN
+78   021_S_0276       30 2008-10-01  NaN
+84   022_S_0004       30 2008-05-08  NaN
+90   023_S_0042       30 2008-06-24  NaN
+97   023_S_0126       30 2008-10-23  NaN
+104  027_S_0116       30 2008-08-18  NaN
+115  027_S_0256       30 2008-10-16  NaN
+122  027_S_0307       30 2008-10-30  NaN
+134  032_S_0214       30 2008-10-16  NaN
+147  035_S_0204       30 2008-09-26  NaN
+157  037_S_0150       30 2008-09-10  NaN
+178  067_S_0176       30 2008-11-20  NaN
+184  098_S_0160       30 2008-08-20  NaN
+190  098_S_0269       30 2008-10-16  NaN
+196  099_S_0051       30 2008-06-20  NaN
+216  100_S_0006       30 2008-06-12  NaN
+228  123_S_0108       30 2008-08-25  NaN
+242  128_S_0225       30 2008-11-10  NaN
+259  130_S_0285       30 2008-10-21  NaN
+266  130_S_0289       30 2008-09-30  NaN
+272  136_S_0107       30 2008-09-02  NaN
+</pre></div>
+</div>
+</div>
+</div>
+<p>Se identifican 28 registros <strong>(10.04%)</strong> sin diagnóstico asignado <em>(DX = NaN)</em>, todos correspondientes a la visita de seguimiento de los 30 meses <em>(VISCODE = 30)</em>. Esto revela un patrón sistemático de ausencia de datos, más que una pérdida aleatoria. Este patrón sugiere que la ausencia del diagnóstico no está relacionada con un error de captura, sino con la estructura temporal del estudio, donde algunas sesiones pueden incluir únicamente medidas de imagen o datos intermedios sin clasificación clínica.</p>
+</section>
+<section id="propiedades-tecnicas-de-las-imagenes">
+<h2><strong>2. Propiedades técnicas de las imágenes</strong><a class="headerlink" href="#propiedades-tecnicas-de-las-imagenes" title="Link to this heading">#</a></h2>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Formatos de imagen:
+             Shape  Imágenes
+0  (160, 192, 192)        99
+1  (166, 256, 256)        89
+2  (180, 256, 256)        35
+3  (256, 256, 170)        34
+4  (256, 256, 184)         9
+5  (170, 256, 256)         6
+6  (160, 240, 256)         4
+7  (176, 256, 256)         1
+8  (170, 288, 288)         1
+9  (162, 256, 256)         1
+
+Orientación:
+       Orientación  Imágenes
+0  (&#39;R&#39;, &#39;A&#39;, &#39;S&#39;)       236
+1  (&#39;P&#39;, &#39;S&#39;, &#39;R&#39;)        43
+
+Tipos de datos [&#39;int16&#39;] 
+Unidades [&quot;(&#39;mm&#39;, &#39;sec&#39;)&quot;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>El conjunto de imágenes presenta una diversidad moderada en sus dimensiones espaciales, con un total de 10 configuraciones distintas de tamaño (shape).
+El formato más común es (160, 192, 192), correspondiente a 99 imágenes, seguido por (166, 256, 256) con 89 imágenes, lo que indica que existe una variabilidad entre protocolos o escáneres de adquisición. Esta heterogeneidad en las dimensiones (ejes de voxeles) sugiere que las imágenes provienen de diferentes estudios o centros clínicos, posiblemente con distintos parámetros de adquisición. Por tanto, antes de realizar cualquier modelado, será necesario homogeneizar las dimensiones mediante re-escalado o re-muestreo volumétrico para garantizar la comparabilidad entre sujetos.</p>
+<p>En cuanto a la orientación espacial, la mayoría de las imágenes (236 de 279) están alineadas bajo el sistema estándar (‘R’, ‘A’, ‘S’), que indica los ejes Right–Anterior–Superior, mientras que un grupo menor (43 imágenes) sigue la orientación (‘P’, ‘S’, ‘R’). Esta diferencia puede generar inconsistencias visuales al entrenar los modelos utilizando a los distintos sujetos, por lo que se tendria que reorientar todas las imagenes a un marco anatómico común.</p>
+<blockquote>
+<div><p><strong>¿Como interpretar los marcos de Orientación Espacial?</strong></p>
+<ul class="simple">
+<li><p>‘R’, ‘L’: Right / Left (derecha / izquierda).</p></li>
+<li><p>‘A’, ‘P’: Anterior / Posterior (frontal / trasera).</p></li>
+<li><p>‘S’, ‘I’: Superior / Inferior (arriba / abajo).</p></li>
+</ul>
+<p><strong>Por ejemplo:</strong></p>
+<ul class="simple">
+<li><p>(‘R’, ‘A’, ‘S’): Ejes orientados hacia la derecha, adelante y arriba.</p></li>
+<li><p>(‘P’, ‘S’, ‘R’): Ejes hacia atrás, arriba y derecha — diferente orden y dirección.</p></li>
+</ul>
+</div></blockquote>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Resoluciones de voxel:
+                          Voxel  Imágenes
+0         (1.2, 0.9375, 0.9375)       113
+1             (1.2, 1.25, 1.25)        97
+2         (0.9375, 0.9375, 1.2)        41
+3   (1.1998978, 0.9375, 0.9375)         6
+4               (1.2, 1.0, 1.0)         4
+5   (1.1996994, 0.9375, 0.9375)         3
+6   (1.1996002, 0.9375, 0.9375)         3
+7   (1.2, 1.2760416, 1.2760416)         1
+8   (1.2003021, 0.9375, 0.9375)         1
+9   (1.2001953, 0.9375, 0.9375)         1
+10  (1.2, 1.3020834, 1.3020834)         1
+11    (1.2, 0.976562, 0.976562)         1
+12  (1.1996994, 0.9766, 0.9766)         1
+13        (1.2, 0.9766, 0.9766)         1
+14              (1.0, 1.0, 1.2)         1
+15        (1.1999999, 1.0, 1.0)         1
+16  (0.9765625, 0.9765625, 1.2)         1
+17  (1.2, 0.8680556, 0.8680556)         1
+18   (1.199884, 0.9375, 0.9375)         1
+
+Volumen de voxel:
+     Volumen  Imágenes
+0   1.054688       154
+1   1.875000        97
+2   1.054598         6
+3   1.200000         5
+4   1.054423         3
+5   1.054336         3
+6   1.054953         1
+7   1.953939         1
+8   2.034505         1
+9   1.144408         1
+10  1.054859         1
+11  1.144210         1
+12  1.144497         1
+13  1.200000         1
+14  1.144409         1
+15  0.904225         1
+16  1.054586         1
+
+Volumen estimado:
+    Volumen total  Imágenes
+0    1.105920e+07        97
+1    1.147392e+07        73
+2    1.175040e+07        37
+3    1.244160e+07        34
+4    1.271808e+07         9
+5    1.147294e+07         6
+6    1.179648e+07         4
+7    1.147105e+07         3
+8    1.147010e+07         3
+9    1.200000e+07         1
+10   1.147579e+07         1
+11   1.244999e+07         1
+12   1.244473e+07         1
+13   1.152480e+07         1
+14   1.245096e+07         1
+15   1.244784e+07         1
+16   1.336934e+07         1
+17   1.384120e+07         1
+18   1.275000e+07         1
+19   1.275000e+07         1
+20   1.174926e+07         1
+21   1.119744e+07         1
+</pre></div>
+</div>
+</div>
+</div>
+<p>Las imágenes presentan variabilidad en la resolución de voxel, con dos configuraciones predominantes: (1.2, 0.9375, 0.9375) y (1.2, 1.25, 1.25), que abarcan más del 75% del total.
+Esta diferencia refleja el uso de distintos protocolos o escáneres, lo que hace necesario re-escalar y normalizar las imágenes antes del análisis.
+Los volúmenes cerebrales estimados (~1.1×10⁷–1.3×10⁷ mm³) son coherentes con medidas anatómicas normales, confirmando una buena calidad de la base de datos.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intensidad de la imagen
+------------------------------
+        mean_intensity
+Brillo                
+count           279.00
+mean          32013.94
+std           71216.46
+min              11.66
+25%             101.73
+50%             127.50
+75%             274.09
+max          363261.17
+------------------------------
+           std_intensity
+Contraste               
+count             279.00
+mean            47971.67
+std            107668.61
+min                16.62
+25%               132.22
+50%               168.22
+75%               369.50
+max            579786.68
+</pre></div>
+</div>
+</div>
+</div>
+<p>El brillo promedio (media de intensidades) es de <strong>≈ 32013</strong> unidades, con una desviación estándar muy alta <strong>(71216)</strong>, y un rango que va desde <em>11.66</em> hasta <em>363261.</em> Esta dispersión indica que las imágenes no se encuentran normalizadas en escala de intensidad, lo cual podría deberse a la combinación de datos provenientes de diferentes escáneres o secuencias de <strong>MRI</strong> <strong>(T1 vs T2)</strong>. La presencia de valores máximos extremadamente altos sugiere que algunas imágenes podrían estar en diferentes unidades o escalas de cuantificación.</p>
+<p>En cuanto al contraste (desviación estándar de intensidades), se observa un valor medio de <strong>≈ 47971</strong>, con una desviación estándar también elevada (<strong>107668</strong>).
+Este comportamiento refuerza la idea de heterogeneidad radiométrica, donde algunas imágenes presentan distribuciones de intensidad muy planas (bajo contraste), mientras que otras muestran mayor separación entre tejidos.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/adc51a173c69dc3310f146ff1f62f08ba2b6f7595d63e46e91393d01a17c13fb.png" src="_images/adc51a173c69dc3310f146ff1f62f08ba2b6f7595d63e46e91393d01a17c13fb.png" />
+<img alt="_images/175871cb7a7e9d6daf16497f3012e3d8f043bf6c123bc889cfec99df4c9bec60.png" src="_images/175871cb7a7e9d6daf16497f3012e3d8f043bf6c123bc889cfec99df4c9bec60.png" />
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>           Variable          Más frecuente  Cantidad  Diferentes
+0             shape        (160, 192, 192)        99         180
+1       orientation        (&#39;R&#39;, &#39;A&#39;, &#39;S&#39;)       236          43
+2        voxel_size  (1.2, 0.9375, 0.9375)       113         166
+3  voxel_volume_mm3               1.054688       154         125
+4      total_volume             11059200.0        97         182
+</pre></div>
+</div>
+</div>
+</div>
+<p>Al observar la configuración de las imágenes, se aprecia que el conjunto de datos no es completamente uniforme, aunque sí existen algunos patrones claros.</p>
+<p>La mayoría de las imágenes comparten una forma de 160 × 192 × 192 voxeles, lo que indica que varias provienen de un mismo protocolo o tipo de escáner. En cuanto a la orientación, la más común es <strong>(‘R’, ‘A’, ‘S’)</strong>, es decir, <em>Right–Anterior–Superior</em>. Esto quiere decir que la mayoría de las imágenes están alineadas en el mismo sentido anatómico, lo cual es positivo, ya que facilita la comparación y el análisis conjunto de los volúmenes.</p>
+<p>También se observa que muchos estudios comparten una resolución de voxel de <strong>(1.2, 0.9375, 0.9375)</strong> mm, con un volumen de aproximadamente 1.05 mm³, lo que refleja una buena calidad espacial de las imágenes. Aun así, la presencia de muchas combinaciones diferentes de resolución y tamaño de voxel indica que será necesario unificar las características espaciales antes de realizar análisis más avanzados o entrenar modelos.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>🔹mean_intensity: 50 outliers detectados
+🔹std_intensity: 50 outliers detectados
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Distribución de puntajes de calidad:
+   Puntaje  Imágenes
+0        2       205
+1        3         2
+2        4        27
+3        6        43
+4        7         2
+</pre></div>
+</div>
+</div>
+</div>
+<p>El puntaje de calidad asignado a cada imagen indica el nivel de degradación o corrupción presente en ella, donde valores más bajos reflejan mayor calidad visual y, por tanto, menor distorsión.</p>
+<p>La gran mayoría de las imágenes (205) tienen un puntaje de 2, lo que indica una alta calidad general del conjunto y poca presencia de artefactos o errores de procesamiento. Solo 2 imágenes presentan un puntaje de 3, y 27 imágenes alcanzan un puntaje de 4, lo que sugiere ligeras degradaciones sin impacto significativo. En contraste, 43 imágenes presentan un puntaje de 6, y 2 imágenes alcanzan 7, reflejando un nivel de corrupción elevado, posiblemente debido a ruido, pérdida de resolución o errores de adquisición.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/217ddc2a7aa61805e6f92e3adb6f6db309aac1a00bbbb2258fdd588466474688.png" src="_images/217ddc2a7aa61805e6f92e3adb6f6db309aac1a00bbbb2258fdd588466474688.png" />
+</div>
+</div>
+</section>
+<section id="sobre-el-paciente">
+<h2><strong>3. Sobre el paciente</strong><a class="headerlink" href="#sobre-el-paciente" title="Link to this heading">#</a></h2>
+<div class="cell tag_remove-input docutils container">
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>------------------------------
+Edades de los pacientes
+count    51.000000
+mean     74.525490
+std       6.904574
+min      60.300000
+25%      70.200000
+50%      75.200000
+75%      79.500000
+max      88.300000
+Name: AGE, dtype: float64
+</pre></div>
+</div>
+<img alt="_images/9472e0e355ef9f81ff91e091fbb4991b7797db1a0bd2368f951146fec7caf0a6.png" src="_images/9472e0e355ef9f81ff91e091fbb4991b7797db1a0bd2368f951146fec7caf0a6.png" />
+</div>
+</div>
+<p>El conjunto de datos incluye información de los 51 pacientes, con una edad promedio de aproximadamente 75 años. Las edades oscilan entre los 60 y 88 años, teniendo en cuenta que la población corresponde principalmente a adultos mayores.</p>
+<p>La distribución es relativamente concentrada, con la mitad de los pacientes entre 70 y 80 años, y una desviación estándar de 6.9 años, lo que sugiere una variabilidad moderada en la edad.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>------------------------------
+Sexo de los pacientes
+          count
+PTGENDER       
+Male         38
+Female       13
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: ylabel=&#39;PTGENDER&#39;&gt;
+</pre></div>
+</div>
+<img alt="_images/ec5bfecbd13a9c86813856b791a4f77850eb16e91c588fb092704fee7105ee10.png" src="_images/ec5bfecbd13a9c86813856b791a4f77850eb16e91c588fb092704fee7105ee10.png" />
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>------------------------------
+Nivel educativo de los pacientes
+                                    count
+PTEDUCAT                                 
+Universitario completo                 16
+Posgrado corto                         12
+Posgrado avanzado                      11
+Técnico o incompleto universitario      5
+Secundaria completa                     4
+Primaria o menos                        3
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: ylabel=&#39;PTEDUCAT&#39;&gt;
+</pre></div>
+</div>
+<img alt="_images/baf3e2c2c543f002f6dec9474fbc58127adda24bf9d606e86828ba769c80a22c.png" src="_images/baf3e2c2c543f002f6dec9474fbc58127adda24bf9d606e86828ba769c80a22c.png" />
+</div>
+</div>
+<p>La mayoría de los pacientes del estudio presentan un alto nivel educativo. Cerca del <strong>77%</strong> cuenta con formación universitaria o de posgrado, lo que sugiere una muestra predominantemente conformada por personas con acceso a educación superior.</p>
+<p>En detalle, 16 pacientes <strong>(≈32%)</strong> completaron estudios universitarios, <strong>12 (≈25%)</strong> alcanzaron un posgrado corto, y <strong>11 (≈21%)</strong> un posgrado avanzado. Los niveles educativos más bajos, como secundaria o primaria, están presentes en pocos casos (menos del <strong>15%</strong> en conjunto).</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>------------------------------
+Genotipo APOE4
+       count
+APOE4       
+0.0       23
+1.0       22
+2.0        6
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: ylabel=&#39;APOE4&#39;&gt;
+</pre></div>
+</div>
+<img alt="_images/bce7fec11aed6bad9742c4cfa82f048d8943680a354406970058ffcd7acc3f54.png" src="_images/bce7fec11aed6bad9742c4cfa82f048d8943680a354406970058ffcd7acc3f54.png" />
+</div>
+</div>
+<p>El análisis del genotipo <strong>APOE4</strong>, un marcador genético estrechamente relacionado con la susceptibilidad al Alzheimer, revela una distribución equilibrada dentro del grupo de pacientes. Cerca de la mitad de ellos no presenta el alelo <strong>(23 individuos)</strong>, mientras que una proporción similar posee una sola copia <strong>(22 individuos)</strong>, y un grupo más reducido, compuesto por seis pacientes, cuenta con dos copias del alelo <strong>APOE4</strong>. Esta variabilidad genética es relevante, ya que la presencia de una o dos copias de <strong>APOE4</strong> se ha asociado con un mayor riesgo de desarrollar Alzheimer y con un posible inicio más temprano de los síntomas.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>------------------------------
+Genotipo DX
+          count
+DX             
+MCI          29
+Dementia     22
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: ylabel=&#39;DX&#39;&gt;
+</pre></div>
+</div>
+<img alt="_images/7b4351ad6b7642ef4083d4f702ba8e30765a84a488b0afb77c530f6a005fe11a.png" src="_images/7b4351ad6b7642ef4083d4f702ba8e30765a84a488b0afb77c530f6a005fe11a.png" />
+</div>
+</div>
+<p>El conjunto de pacientes presenta una distribución moderadamente equilibrada entre los distintos estados clínicos del diagnóstico (<strong>DX</strong>). La mayoría corresponde a casos de deterioro cognitivo leve (<strong>MCI</strong>), con <strong>29 pacientes</strong>, mientras que los <strong>22 restantes</strong> han sido diagnosticados con demencia, fase más avanzada del Alzheimer. Esta composición refleja una muestra representativa de distintas etapas del deterioro cognitivo, lo que permite analizar tanto los cambios estructurales tempranos como los asociados a un daño cerebral más severo.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                count
+duracion_anios       
+1                  12
+2                  22
+3                  16
+4                   1
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: ylabel=&#39;duracion_anios&#39;&gt;
+</pre></div>
+</div>
+<img alt="_images/e56e1bac199f9927f8eca7818b1273e9c47d6958829fb177e68e8b81f102dbab.png" src="_images/e56e1bac199f9927f8eca7818b1273e9c47d6958829fb177e68e8b81f102dbab.png" />
+</div>
+</div>
+<p>La duración del seguimiento clínico de los pacientes varía entre cero y cuatro años, concentrándose principalmente en períodos intermedios. La mayoría de los sujetos fueron observados durante <strong>dos años</strong> <strong>(22 pacientes)</strong> o <strong>tres años (16 pacientes)</strong>, mientras que un grupo menor tuvo un seguimiento de <strong>un año (12 pacientes)</strong>. Solo uno alcanzó los <strong>cuatro años de registro</strong>.</p>
+</section>
+<section id="progresion-clinica">
+<h2><strong>4. Progresión clínica</strong><a class="headerlink" href="#progresion-clinica" title="Link to this heading">#</a></h2>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   Vistas  Pacientes
+0       3          6
+1       4          7
+2       5         10
+3       6         13
+4       7         15
+Resumen de número de visitas por paciente:
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Frecuencia&#39;)
+</pre></div>
+</div>
+<img alt="_images/7d0c22ef57120e6a06bde2404066d642361948069012fd1732ffdb42362b732b.png" src="_images/7d0c22ef57120e6a06bde2404066d642361948069012fd1732ffdb42362b732b.png" />
+</div>
+</div>
+<p>El número de visitas por paciente muestra una distribución progresiva, donde la mayoría de los individuos cuentan con un seguimiento prolongado a lo largo de varias evaluaciones clínicas o sesiones de imagen. En total, <strong>15 pacientes realizaron 7 visitas</strong>, constituyendo el grupo más numeroso y representando un <strong>seguimiento continuo y completo</strong> dentro del estudio. A continuación, le siguen los grupos con <strong>6 visitas (13 pacientes)</strong> y <strong>5 visitas (10 pacientes)</strong>, lo que refleja una buena retención de participantes. En contraste, solo un número reducido de pacientes tuvo <strong>3 o 4 visitas (6 y 7 casos, respectivamente)</strong>, posiblemente debido a abandonos o inclusión tardía en el estudio.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/837a07371ed20205ad53b27e40ef0f0187a36d80fc31dc52762502a21a11c955.png" src="_images/837a07371ed20205ad53b27e40ef0f0187a36d80fc31dc52762502a21a11c955.png" />
+</div>
+</div>
+<p>La línea temporal de visitas por sujeto muestra un seguimiento clínico estructurado y constante a lo largo del tiempo para la mayoría de los participantes del estudio. Cada línea representa a un paciente y los puntos indican las fechas en las que se realizaron las evaluaciones o adquisiciones de imágenes.</p>
+<p>Se observa que la mayoría de los sujetos cuentan con múltiples visitas distribuidas regularmente, lo que evidencia un protocolo longitudinal bien definido, con mediciones repetidas aproximadamente cada seis meses. Algunos sujetos tienen menos puntos en su línea, lo que podría reflejar pérdida de seguimiento, exclusiones o incorporación tardía en el estudio.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>         count
+VISCODE       
+0           51
+6           51
+12          51
+18          43
+24          38
+30          28
+36          17
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: ylabel=&#39;VISCODE&#39;&gt;
+</pre></div>
+</div>
+<img alt="_images/9447414d1ee7e2960d78b313e8bc5f4ed2bbd1f6578a3cd84d72200cbdb0982f.png" src="_images/9447414d1ee7e2960d78b313e8bc5f4ed2bbd1f6578a3cd84d72200cbdb0982f.png" />
+</div>
+</div>
+<p>Los valores muestran una reducción progresiva en la cantidad de registros a medida que aumenta el tiempo de seguimiento — de 51 sujetos al inicio, a solo 17 en el mes 36. Esto sugiere pérdida de participantes, algo habitual en estudios clínicos prolongados, ya sea por retiro, fallecimiento o datos incompletos.</p>
+<ul class="simple">
+<li><p>Variables Cognitivas</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Variables cognitivas</span>
+<span class="n">info_cognitiva</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;sujeto_id&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span>
+    <span class="s1">&#39;CDRSB&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;min&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;MMSE&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;min&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;ADAS13&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;min&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;FAQ&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;min&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;RAVLT_immediate&#39;</span><span class="p">:[</span><span class="s1">&#39;min&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;RAVLT_learning&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;min&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;RAVLT_forgetting&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;min&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;DIGITSCOR&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;min&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;TRABSCOR&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;min&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">],</span>
+<span class="p">})</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Hp\AppData\Local\Temp\ipykernel_784\2176027057.py:19: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.boxplot(
+</pre></div>
+</div>
+<img alt="_images/0bdc3c29a33e345e5942233b166e11fede67f78cfe1e8e6a4ebbd7a06636ceb4.png" src="_images/0bdc3c29a33e345e5942233b166e11fede67f78cfe1e8e6a4ebbd7a06636ceb4.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Hp\AppData\Local\Temp\ipykernel_784\2176027057.py:19: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.boxplot(
+</pre></div>
+</div>
+<img alt="_images/29cbebb43eec1e0e49e85ca8a42d96f70b77e79931f390a0584a847a2f0ba542.png" src="_images/29cbebb43eec1e0e49e85ca8a42d96f70b77e79931f390a0584a847a2f0ba542.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Hp\AppData\Local\Temp\ipykernel_784\2176027057.py:19: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.boxplot(
+</pre></div>
+</div>
+<img alt="_images/5e502a72fc2803ca18d67e75bdab81fe3aaf151e195fd324fec11c55cea2caab.png" src="_images/5e502a72fc2803ca18d67e75bdab81fe3aaf151e195fd324fec11c55cea2caab.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Hp\AppData\Local\Temp\ipykernel_784\2176027057.py:19: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.boxplot(
+</pre></div>
+</div>
+<img alt="_images/0b81f6c77e5cbdf43d6f9bb7ce89d587e5b247ae6d41f5893212e57739250620.png" src="_images/0b81f6c77e5cbdf43d6f9bb7ce89d587e5b247ae6d41f5893212e57739250620.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Hp\AppData\Local\Temp\ipykernel_784\2176027057.py:19: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.boxplot(
+</pre></div>
+</div>
+<img alt="_images/c3ad7e0b5635861a1e80d9fe57a28bf677d919a391b9d846ec84b9c93540e52e.png" src="_images/c3ad7e0b5635861a1e80d9fe57a28bf677d919a391b9d846ec84b9c93540e52e.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Hp\AppData\Local\Temp\ipykernel_784\2176027057.py:19: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.boxplot(
+</pre></div>
+</div>
+<img alt="_images/372eabbe42dc44b045f40bc05f32a5ac6de9d6c55881690b28b4b20367665cdd.png" src="_images/372eabbe42dc44b045f40bc05f32a5ac6de9d6c55881690b28b4b20367665cdd.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Hp\AppData\Local\Temp\ipykernel_784\2176027057.py:19: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.boxplot(
+</pre></div>
+</div>
+<img alt="_images/0bcfa6dd339411c58452d0868aa4d06d0677982cc328d5b51105d0dc8bff3ee4.png" src="_images/0bcfa6dd339411c58452d0868aa4d06d0677982cc328d5b51105d0dc8bff3ee4.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Hp\AppData\Local\Temp\ipykernel_784\2176027057.py:19: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.boxplot(
+</pre></div>
+</div>
+<img alt="_images/cbb81a16a143a4255d99a0643a2281fe70c96beaf0793b04d726501482ae1ee4.png" src="_images/cbb81a16a143a4255d99a0643a2281fe70c96beaf0793b04d726501482ae1ee4.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Hp\AppData\Local\Temp\ipykernel_784\2176027057.py:19: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.boxplot(
+</pre></div>
+</div>
+<img alt="_images/67d39bcd075e5fc15ead34675924bb6b89ae8bfef5f4ee675012c20a3c68c73f.png" src="_images/67d39bcd075e5fc15ead34675924bb6b89ae8bfef5f4ee675012c20a3c68c73f.png" />
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>variable</th>
+      <th>estadistica</th>
+      <th>min</th>
+      <th>mean</th>
+      <th>max</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>ADAS13</td>
+      <td>max</td>
+      <td>10.33</td>
+      <td>25.29</td>
+      <td>49.33</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>ADAS13</td>
+      <td>mean</td>
+      <td>8.33</td>
+      <td>20.74</td>
+      <td>36.40</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>ADAS13</td>
+      <td>min</td>
+      <td>1.67</td>
+      <td>16.27</td>
+      <td>32.33</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>CDRSB</td>
+      <td>max</td>
+      <td>0.50</td>
+      <td>2.98</td>
+      <td>9.00</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>CDRSB</td>
+      <td>mean</td>
+      <td>0.50</td>
+      <td>1.97</td>
+      <td>5.00</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>CDRSB</td>
+      <td>min</td>
+      <td>0.00</td>
+      <td>1.06</td>
+      <td>3.00</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>DIGITSCOR</td>
+      <td>max</td>
+      <td>20.00</td>
+      <td>42.22</td>
+      <td>68.00</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>DIGITSCOR</td>
+      <td>mean</td>
+      <td>14.20</td>
+      <td>37.28</td>
+      <td>61.67</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>DIGITSCOR</td>
+      <td>min</td>
+      <td>0.00</td>
+      <td>31.35</td>
+      <td>53.00</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>FAQ</td>
+      <td>max</td>
+      <td>0.00</td>
+      <td>8.53</td>
+      <td>25.00</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>FAQ</td>
+      <td>mean</td>
+      <td>0.00</td>
+      <td>5.39</td>
+      <td>20.80</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>FAQ</td>
+      <td>min</td>
+      <td>0.00</td>
+      <td>2.67</td>
+      <td>18.00</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>MMSE</td>
+      <td>max</td>
+      <td>24.00</td>
+      <td>28.29</td>
+      <td>30.00</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>MMSE</td>
+      <td>mean</td>
+      <td>15.20</td>
+      <td>26.11</td>
+      <td>29.83</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>MMSE</td>
+      <td>min</td>
+      <td>8.00</td>
+      <td>23.75</td>
+      <td>29.00</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>RAVLT_forgetting</td>
+      <td>max</td>
+      <td>3.00</td>
+      <td>6.29</td>
+      <td>11.00</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>RAVLT_forgetting</td>
+      <td>mean</td>
+      <td>1.00</td>
+      <td>4.54</td>
+      <td>8.00</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>RAVLT_forgetting</td>
+      <td>min</td>
+      <td>-7.00</td>
+      <td>2.75</td>
+      <td>7.00</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>RAVLT_immediate</td>
+      <td>max</td>
+      <td>18.00</td>
+      <td>33.14</td>
+      <td>57.00</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>RAVLT_immediate</td>
+      <td>mean</td>
+      <td>13.60</td>
+      <td>28.05</td>
+      <td>49.33</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>RAVLT_immediate</td>
+      <td>min</td>
+      <td>5.00</td>
+      <td>23.27</td>
+      <td>41.00</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>RAVLT_learning</td>
+      <td>max</td>
+      <td>2.00</td>
+      <td>5.12</td>
+      <td>10.00</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>RAVLT_learning</td>
+      <td>mean</td>
+      <td>0.67</td>
+      <td>3.19</td>
+      <td>7.33</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>RAVLT_learning</td>
+      <td>min</td>
+      <td>-2.00</td>
+      <td>1.22</td>
+      <td>5.00</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>TRABSCOR</td>
+      <td>max</td>
+      <td>53.00</td>
+      <td>178.90</td>
+      <td>300.00</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>TRABSCOR</td>
+      <td>mean</td>
+      <td>44.33</td>
+      <td>134.41</td>
+      <td>286.80</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>TRABSCOR</td>
+      <td>min</td>
+      <td>0.00</td>
+      <td>88.12</td>
+      <td>234.00</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Las variables cognitivas evaluadas reflejan distintos dominios del funcionamiento mental, desde la memoria hasta la función ejecutiva.</p>
+<p>El <strong>MMSE</strong> presenta valores promedio entre 15 y 29 puntos, indicando una amplia variabilidad en el estado cognitivo general, desde deterioro leve hasta casi normalidad. De forma consistente, el <strong>CDRSB</strong> muestra medias entre 1 y 2 puntos, con máximos de hasta 9, lo que sugiere diferencias marcadas en la severidad clínica de la demencia.</p>
+<p>El <strong>ADAS13</strong>, centrado en el deterioro asociado al Alzheimer, promedia entre 16 y 25 puntos, evidenciando un grado de afectación moderado en gran parte de los pacientes. En el ámbito funcional, el <strong>FAQ</strong> mantiene medias entre 2 y 5 puntos, reflejando una pérdida leve a moderada en las actividades diarias.</p>
+<p>Las pruebas de memoria verbal (<strong>RAVLT</strong>) muestran un rendimiento variable: las puntuaciones inmediatas y de aprendizaje oscilan entre 23 y 33, mientras que el índice de olvido (RAVLT_forgetting) evidencia una retención disminuida en varios casos. Por su parte, la atención y la memoria de trabajo (<strong>DIGITSCOR</strong>) se mantienen relativamente conservadas, con medias alrededor de 37 puntos.</p>
+<p>Finalmente, el <strong>TRABSCOR</strong>, indicador de la función ejecutiva, alcanza promedios cercanos a 135 segundos, reflejando una ralentización cognitiva en algunos sujetos.
+En conjunto, los resultados confirman la heterogeneidad del perfil cognitivo en la muestra, coherente con diferentes etapas del deterioro cognitivo y la demencia.</p>
+<ul class="simple">
+<li><p>Variables sobre el volumen MRI</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Variables de de Volúmenes MRI</span>
+<span class="n">info_volumen</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;sujeto_id&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span>
+    <span class="s1">&#39;Ventricles&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;min&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;Hippocampus&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;min&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;WholeBrain&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;min&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">],</span> 
+    <span class="s1">&#39;Entorhinal&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;min&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;Fusiform&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;min&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;MidTemp&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;min&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;ICV&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;min&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">]</span>
+<span class="p">})</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Hp\AppData\Local\Temp\ipykernel_784\1002387156.py:19: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.boxplot(
+</pre></div>
+</div>
+<img alt="_images/c3b052c4ea434dc1cb0d38afe83bc0814c8472599eefc59130cab5e1c2dca189.png" src="_images/c3b052c4ea434dc1cb0d38afe83bc0814c8472599eefc59130cab5e1c2dca189.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Hp\AppData\Local\Temp\ipykernel_784\1002387156.py:19: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.boxplot(
+</pre></div>
+</div>
+<img alt="_images/c8424d6862e06e4523d18646c357154c990575287c12908af572fa15135df2ef.png" src="_images/c8424d6862e06e4523d18646c357154c990575287c12908af572fa15135df2ef.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Hp\AppData\Local\Temp\ipykernel_784\1002387156.py:19: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.boxplot(
+</pre></div>
+</div>
+<img alt="_images/bebf38bd20036399c24acecb796e69d17073b84d031635e739da620057ce165a.png" src="_images/bebf38bd20036399c24acecb796e69d17073b84d031635e739da620057ce165a.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Hp\AppData\Local\Temp\ipykernel_784\1002387156.py:19: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.boxplot(
+</pre></div>
+</div>
+<img alt="_images/46516f949988be1d27e90d14c9e36104aa58dd7a402a6eab540d424a111a5e9a.png" src="_images/46516f949988be1d27e90d14c9e36104aa58dd7a402a6eab540d424a111a5e9a.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Hp\AppData\Local\Temp\ipykernel_784\1002387156.py:19: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.boxplot(
+</pre></div>
+</div>
+<img alt="_images/5649a80057cf7df3ebb9e27f34fa608ed3c3b08f1b75c8463e87d26129f31e12.png" src="_images/5649a80057cf7df3ebb9e27f34fa608ed3c3b08f1b75c8463e87d26129f31e12.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Hp\AppData\Local\Temp\ipykernel_784\1002387156.py:19: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.boxplot(
+</pre></div>
+</div>
+<img alt="_images/d288bae7209ae546463a3d1d0e80ced7da3ba0c3cb97389e3642a8492274499b.png" src="_images/d288bae7209ae546463a3d1d0e80ced7da3ba0c3cb97389e3642a8492274499b.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Hp\AppData\Local\Temp\ipykernel_784\1002387156.py:19: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.boxplot(
+</pre></div>
+</div>
+<img alt="_images/a26f9596f19f47169ce305ba986920d8db1744e72bee1f7d59df92d7568952e5.png" src="_images/a26f9596f19f47169ce305ba986920d8db1744e72bee1f7d59df92d7568952e5.png" />
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>variable</th>
+      <th>estadistica</th>
+      <th>min</th>
+      <th>mean</th>
+      <th>max</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Entorhinal</td>
+      <td>max</td>
+      <td>2023.00</td>
+      <td>3481.71</td>
+      <td>5090.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Entorhinal</td>
+      <td>mean</td>
+      <td>1853.00</td>
+      <td>3157.49</td>
+      <td>4511.2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Entorhinal</td>
+      <td>min</td>
+      <td>1608.00</td>
+      <td>2832.86</td>
+      <td>4215.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Fusiform</td>
+      <td>max</td>
+      <td>10946.00</td>
+      <td>16742.86</td>
+      <td>21808.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Fusiform</td>
+      <td>mean</td>
+      <td>10424.33</td>
+      <td>16061.54</td>
+      <td>20798.8</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Fusiform</td>
+      <td>min</td>
+      <td>9860.00</td>
+      <td>15365.92</td>
+      <td>19972.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Hippocampus</td>
+      <td>max</td>
+      <td>4087.00</td>
+      <td>6431.73</td>
+      <td>9396.0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Hippocampus</td>
+      <td>mean</td>
+      <td>3717.67</td>
+      <td>6205.67</td>
+      <td>9251.5</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Hippocampus</td>
+      <td>min</td>
+      <td>3471.00</td>
+      <td>5997.59</td>
+      <td>9102.0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>ICV</td>
+      <td>max</td>
+      <td>1325720.00</td>
+      <td>1595814.31</td>
+      <td>1888900.0</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>ICV</td>
+      <td>mean</td>
+      <td>1320936.67</td>
+      <td>1585118.96</td>
+      <td>1867338.0</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>ICV</td>
+      <td>min</td>
+      <td>1315940.00</td>
+      <td>1575091.76</td>
+      <td>1850260.0</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>MidTemp</td>
+      <td>max</td>
+      <td>11241.00</td>
+      <td>18991.55</td>
+      <td>25678.0</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>MidTemp</td>
+      <td>mean</td>
+      <td>10291.00</td>
+      <td>18319.15</td>
+      <td>24870.0</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>MidTemp</td>
+      <td>min</td>
+      <td>9341.00</td>
+      <td>17627.04</td>
+      <td>23970.0</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Ventricles</td>
+      <td>max</td>
+      <td>13209.00</td>
+      <td>48518.61</td>
+      <td>156066.0</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>Ventricles</td>
+      <td>mean</td>
+      <td>12704.00</td>
+      <td>45054.87</td>
+      <td>146665.4</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>Ventricles</td>
+      <td>min</td>
+      <td>12346.00</td>
+      <td>41663.00</td>
+      <td>126585.0</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>WholeBrain</td>
+      <td>max</td>
+      <td>777166.00</td>
+      <td>1012856.61</td>
+      <td>1249300.0</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>WholeBrain</td>
+      <td>mean</td>
+      <td>771940.33</td>
+      <td>994606.37</td>
+      <td>1208020.0</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>WholeBrain</td>
+      <td>min</td>
+      <td>765255.00</td>
+      <td>976903.06</td>
+      <td>1188380.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Las variables de volumen derivadas de imágenes de resonancia magnética permiten cuantificar la estructura anatómica del cerebro y detectar cambios asociados con la atrofia y el deterioro cognitivo.</p>
+<p>En general, los <strong>volúmenes medios</strong> observados muestran una distribución coherente con las variaciones esperadas entre sujetos y posibles etapas de deterioro. El <strong>volumen intracraneal total</strong> (<strong>ICV</strong>) presenta valores promedio cercanos a <strong>1.59 millones de mm³</strong>, siendo una medida anatómica estable que se utiliza para normalizar otras variables de volumen.</p>
+<p>El <strong>volumen total cerebral</strong> (<strong>WholeBrain</strong>) muestra valores promedio alrededor del <strong>millón de mm³</strong>, mientras que los <strong>ventrículos</strong> (<strong>Ventricles</strong>) presentan una alta variabilidad (media ≈ 47.000 mm³), lo cual es característico de la expansión ventricular asociada a procesos de atrofia cortical.</p>
+<p>Regiones críticas vinculadas con la memoria, como el <strong>hipocampo</strong> (<strong>Hippocampus</strong>) y la <strong>corteza entorrinal</strong> (<strong>Entorhinal</strong>), presentan volúmenes medios de aproximadamente <strong>6.200 mm³</strong> y <strong>3.100 mm³</strong>, respectivamente. La reducción en estas áreas se considera uno de los primeros indicadores estructurales del Alzheimer.</p>
+<p>Por otro lado, estructuras del lóbulo temporal, como el <strong>giro fusiforme</strong> (<strong>Fusiform</strong>) y el <strong>lóbulo temporal medio</strong> (<strong>MidTemp</strong>), presentan volúmenes intermedios (entre <strong>15.000 y 18.000 mm³</strong>), reflejando su participación en procesos de reconocimiento visual y auditivo.</p>
+<p>En conjunto, los resultados muestran una tendencia esperada de atrofia progresiva, principalmente en regiones temporales y de memoria, mientras que <strong>ICV</strong> y <strong>WholeBrain</strong> actúan como referencias anatómicas estables para la comparación entre sujetos y sesiones.</p>
+<ul class="simple">
+<li><p>Diagnostico Inicial vrs Final</p></li>
+</ul>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>dx_final</th>
+      <th>Dementia</th>
+      <th>MCI</th>
+    </tr>
+    <tr>
+      <th>dx_inicio</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>MCI</th>
+      <td>22</td>
+      <td>29</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>El diagnóstico inicial muestra que todos los participantes comenzaron el estudio con <strong>deterioro cognitivo leve (MCI)</strong>. Sin embargo, al finalizar el seguimiento, <strong>22 de ellos progresaron a demencia</strong>, mientras que <strong>29 se mantuvieron en la misma condición</strong>. Esto refleja una tendencia esperada en la evolución clínica del MCI, donde una proporción significativa de pacientes presenta un empeoramiento cognitivo a lo largo del tiempo, mientras que otros permanecen estables.</p>
+</section>
+<section id="analisis-bivariado">
+<h2><strong>5. Análisis Bivariado</strong><a class="headerlink" href="#analisis-bivariado" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>dx_final x Edad</p></li>
+</ul>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>50%</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>dx_final</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Dementia</th>
+      <td>22.0</td>
+      <td>74.2</td>
+      <td>6.8</td>
+      <td>60.3</td>
+      <td>70.4</td>
+      <td>74.7</td>
+      <td>79.2</td>
+      <td>88.3</td>
+    </tr>
+    <tr>
+      <th>MCI</th>
+      <td>29.0</td>
+      <td>74.8</td>
+      <td>7.1</td>
+      <td>60.7</td>
+      <td>70.3</td>
+      <td>75.2</td>
+      <td>79.4</td>
+      <td>86.1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Los pacientes con deterioro cognitivo leve (MCI) presentan una edad promedio de 74.8 años (DE = 7.1), con un rango entre 60.7 y 86.1 años. Por su parte, los pacientes diagnosticados con demencia muestran una edad promedio ligeramente menor, de 74.2 años (DE = 6.8), con un rango entre 60.3 y 88.3 años.</p>
+<p>Ambos grupos presentan distribuciones similares en sus valores mínimos y máximos, concentrando el 50 % central de los casos (rango intercuartílico) entre los 70 y 80 años.</p>
+<ul class="simple">
+<li><p>Valores COGNI x VISCODE</p></li>
+</ul>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>CDRSB</th>
+      <th>MMSE</th>
+      <th>ADAS13</th>
+      <th>FAQ</th>
+      <th>RAVLT_immediate</th>
+      <th>RAVLT_learning</th>
+      <th>RAVLT_forgetting</th>
+      <th>DIGITSCOR</th>
+      <th>TRABSCOR</th>
+    </tr>
+    <tr>
+      <th>VISCODE</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.235294</td>
+      <td>27.372549</td>
+      <td>19.078627</td>
+      <td>3.500000</td>
+      <td>29.862745</td>
+      <td>3.745098</td>
+      <td>4.960784</td>
+      <td>37.725490</td>
+      <td>120.220000</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>1.627451</td>
+      <td>26.411765</td>
+      <td>19.467400</td>
+      <td>4.352941</td>
+      <td>28.137255</td>
+      <td>3.254902</td>
+      <td>4.529412</td>
+      <td>38.882353</td>
+      <td>118.755102</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>1.941176</td>
+      <td>26.333333</td>
+      <td>20.157451</td>
+      <td>5.360000</td>
+      <td>28.627451</td>
+      <td>3.235294</td>
+      <td>4.490196</td>
+      <td>36.901961</td>
+      <td>135.843137</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>2.348837</td>
+      <td>25.581395</td>
+      <td>22.200930</td>
+      <td>6.116279</td>
+      <td>27.714286</td>
+      <td>2.714286</td>
+      <td>4.476190</td>
+      <td>37.069767</td>
+      <td>137.465116</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>2.837838</td>
+      <td>24.815789</td>
+      <td>23.491842</td>
+      <td>7.837838</td>
+      <td>26.447368</td>
+      <td>2.552632</td>
+      <td>4.736842</td>
+      <td>35.289474</td>
+      <td>160.684211</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>2.812500</td>
+      <td>25.647059</td>
+      <td>21.372353</td>
+      <td>7.235294</td>
+      <td>27.529412</td>
+      <td>3.352941</td>
+      <td>4.687500</td>
+      <td>38.562500</td>
+      <td>151.176471</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>El análisis temporal de los puntajes cognitivos muestra una tendencia progresiva hacia el deterioro conforme avanza el seguimiento clínico (de 0 a 36 meses), consistente con la evolución esperada en cohortes con riesgo o diagnóstico de Alzheimer.</p>
+<p>En la <strong>escala CDRSB (Clinical Dementia Rating Sum of Boxes)</strong>, que mide la severidad de la demencia, los valores medios aumentan de <strong>1.23 en el inicio</strong> a <strong>2.84 al mes 24</strong>, indicando una mayor afectación funcional y cognitiva.
+En contraste, el <strong>MMSE (Mini-Mental State Examination)</strong>, que evalúa el estado cognitivo global, muestra un descenso gradual de <strong>27.3 a 24.8 puntos</strong>, reflejando una pérdida de funciones cognitivas generales.</p>
+<p>El <strong>ADAS13</strong>, un índice sensible al deterioro en Alzheimer, pasa de <strong>19.0 a 23.5 puntos</strong> en el mismo periodo, reforzando esta tendencia al empeoramiento. De manera paralela, el <strong>FAQ</strong>, que evalúa la autonomía en actividades diarias, se incrementa de <strong>3.5 a 7.8 puntos</strong>, lo cual indica una disminución de la funcionalidad cotidiana.</p>
+<p>En cuanto a las pruebas de memoria verbal (<strong>RAVLT_immediate</strong>, <strong>RAVLT_learning</strong> y <strong>RAVLT_forgetting</strong>), se observa un descenso leve en el rendimiento de aprendizaje y recuerdo con el tiempo, mientras que las medidas de <strong>atención y funciones ejecutivas</strong> (<strong>DIGITSCOR</strong> y <strong>TRABSCOR</strong>) presentan fluctuaciones más moderadas, aunque también con una ligera tendencia a la disminución del rendimiento o incremento del tiempo de ejecución.</p>
+<p>En conjunto, estos resultados confirman un proceso de deterioro cognitivo progresivo, particularmente evidente en las medidas globales (CDRSB, MMSE, ADAS13) y funcionales (FAQ), coherente con la naturaleza degenerativa de la enfermedad de Alzheimer y su impacto acumulativo a lo largo de los años de seguimiento.</p>
+<ul class="simple">
+<li><p>Valores VOLUMEN x VISCODE</p></li>
+</ul>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Ventricles</th>
+      <th>Hippocampus</th>
+      <th>WholeBrain</th>
+      <th>Entorhinal</th>
+      <th>Fusiform</th>
+      <th>MidTemp</th>
+      <th>ICV</th>
+    </tr>
+    <tr>
+      <th>VISCODE</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>42340.960784</td>
+      <td>6410.680851</td>
+      <td>1.004484e+06</td>
+      <td>3310.191489</td>
+      <td>16595.851064</td>
+      <td>18974.000000</td>
+      <td>1.582249e+06</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>43703.612245</td>
+      <td>6197.930233</td>
+      <td>9.968302e+05</td>
+      <td>3152.511628</td>
+      <td>16317.046512</td>
+      <td>18627.395349</td>
+      <td>1.585129e+06</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>45051.313725</td>
+      <td>6266.659091</td>
+      <td>9.957942e+05</td>
+      <td>3211.750000</td>
+      <td>16089.818182</td>
+      <td>18337.409091</td>
+      <td>1.585502e+06</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>48546.780488</td>
+      <td>6185.184211</td>
+      <td>9.920210e+05</td>
+      <td>3090.815789</td>
+      <td>16028.815789</td>
+      <td>17961.078947</td>
+      <td>1.587287e+06</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>49118.617647</td>
+      <td>5985.392857</td>
+      <td>9.839078e+05</td>
+      <td>3093.571429</td>
+      <td>15676.285714</td>
+      <td>18249.607143</td>
+      <td>1.592065e+06</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>43194.400000</td>
+      <td>6010.833333</td>
+      <td>9.965634e+05</td>
+      <td>3006.333333</td>
+      <td>15955.166667</td>
+      <td>18281.166667</td>
+      <td>1.589993e+06</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Los valores promedio de los volúmenes cerebrales muestran una evolución coherente con los procesos de deterioro cognitivo progresivo. A lo largo de las distintas visitas (<strong>VISCODE</strong>), se observa un incremento paulatino en el volumen de los <strong>ventrículos cerebrales (Ventricles)</strong>, pasando de aproximadamente 44,600 mm³ al inicio a más de 49,000 mm³ en el mes 24. Este aumento refleja la expansión ventricular asociada a la pérdida de tejido cerebral.</p>
+<p>En contraste, el volumen del <strong>hipocampo (Hippocampus)</strong> presenta una tendencia descendente, disminuyendo desde unos 6,426 mm³ hasta cerca de 5,985 mm³ en el mismo periodo. Esta reducción es consistente con la atrofia hipocampal que caracteriza a los trastornos neurodegenerativos como el Alzheimer. Una trayectoria similar se observa en el <strong>entorhinal (Entorhinal)</strong>, región crucial para la memoria y la navegación espacial, que pasa de valores medios de 3,312 a cerca de 3,093 mm³.</p>
+<p>El volumen del <strong>cerebro completo (WholeBrain)</strong> también disminuye progresivamente, desde aproximadamente 1,004,679 mm³ hasta 983,907 mm³ al mes 24, mientras que estructuras corticales específicas como el <strong>fusiforme (Fusiform)</strong> y el <strong>temporal medio (MidTemp)</strong> mantienen una reducción más leve pero constante. En particular, el <strong>Fusiform</strong> disminuye de 16,595 a 15,676 mm³, y el <strong>MidTemp</strong> de 18,974 a 18,249 mm³, lo que sugiere pérdida de masa en áreas relacionadas con el procesamiento visual y la memoria semántica.</p>
+<p>Por su parte, el <strong>volumen intracraneal total (ICV)</strong> se mantiene estable a lo largo del tiempo, rondando los 1.58 millones de mm³, como es esperable al ser una medida estructural fija que no varía con la enfermedad sino que sirve de referencia para normalizar otros volúmenes.</p>
+<p>En conjunto, estas tendencias reflejan un patrón de <strong>atrofia cerebral progresiva</strong>, con expansión ventricular y pérdida de volumen en estructuras corticales y subcorticales clave, consistente con la progresión típica del deterioro cognitivo y la enfermedad de Alzheimer.</p>
+</section>
+<section id="evolucion-del-diagnostico-por-visita">
+<h2><strong>6. Evolución del Diagnostico por Visita</strong><a class="headerlink" href="#evolucion-del-diagnostico-por-visita" title="Link to this heading">#</a></h2>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>VISCODE</th>
+      <th>0</th>
+      <th>6</th>
+      <th>12</th>
+      <th>18</th>
+      <th>24</th>
+      <th>36</th>
+    </tr>
+    <tr>
+      <th>sujeto_id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>007_S_0101</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>Dementia</td>
+      <td>Dementia</td>
+    </tr>
+    <tr>
+      <th>007_S_0128</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>Dementia</td>
+      <td>Dementia</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <th>007_S_0249</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>Dementia</td>
+      <td>Dementia</td>
+      <td>Dementia</td>
+      <td>Dementia</td>
+    </tr>
+    <tr>
+      <th>013_S_0240</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>Dementia</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <th>014_S_0169</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+    </tr>
+    <tr>
+      <th>018_S_0057</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>Dementia</td>
+      <td>Dementia</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <th>018_S_0080</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <th>018_S_0087</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <th>018_S_0142</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <th>018_S_0155</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <th>021_S_0141</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>Dementia</td>
+      <td>Dementia</td>
+      <td>Dementia</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <th>021_S_0231</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>Dementia</td>
+      <td>Dementia</td>
+    </tr>
+    <tr>
+      <th>021_S_0273</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <th>021_S_0276</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+    </tr>
+    <tr>
+      <th>022_S_0004</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <th>023_S_0042</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>Dementia</td>
+      <td>Dementia</td>
+      <td>Dementia</td>
+      <td>Dementia</td>
+    </tr>
+    <tr>
+      <th>023_S_0126</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>Dementia</td>
+    </tr>
+    <tr>
+      <th>027_S_0116</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+    </tr>
+    <tr>
+      <th>027_S_0179</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>Dementia</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <th>027_S_0256</th>
+      <td>MCI</td>
+      <td>Dementia</td>
+      <td>Dementia</td>
+      <td>Dementia</td>
+      <td>Dementia</td>
+      <td>Dementia</td>
+    </tr>
+    <tr>
+      <th>027_S_0307</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+    </tr>
+    <tr>
+      <th>032_S_0187</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>Dementia</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <th>032_S_0214</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>Dementia</td>
+      <td>Dementia</td>
+    </tr>
+    <tr>
+      <th>035_S_0033</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+    </tr>
+    <tr>
+      <th>035_S_0204</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>Dementia</td>
+      <td>Dementia</td>
+      <td>Dementia</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <th>035_S_0292</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <th>037_S_0150</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <th>041_S_0282</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <th>067_S_0038</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <th>067_S_0077</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>Dementia</td>
+      <td>Dementia</td>
+      <td>Dementia</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <th>067_S_0098</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>-</td>
+      <td>MCI</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <th>067_S_0176</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>-</td>
+      <td>MCI</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <th>098_S_0160</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <th>098_S_0269</th>
+      <td>MCI</td>
+      <td>Dementia</td>
+      <td>Dementia</td>
+      <td>Dementia</td>
+      <td>Dementia</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <th>099_S_0051</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <th>099_S_0054</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>Dementia</td>
+      <td>Dementia</td>
+      <td>Dementia</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <th>099_S_0060</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <th>099_S_0111</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>Dementia</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <th>099_S_0291</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <th>100_S_0006</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+    </tr>
+    <tr>
+      <th>100_S_0296</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <th>123_S_0108</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>Dementia</td>
+      <td>Dementia</td>
+      <td>Dementia</td>
+    </tr>
+    <tr>
+      <th>128_S_0188</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <th>128_S_0200</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <th>128_S_0225</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+    </tr>
+    <tr>
+      <th>128_S_0258</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>Dementia</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <th>130_S_0102</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <th>130_S_0285</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+    </tr>
+    <tr>
+      <th>130_S_0289</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>Dementia</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <th>136_S_0107</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>MCI</td>
+    </tr>
+    <tr>
+      <th>136_S_0195</th>
+      <td>MCI</td>
+      <td>MCI</td>
+      <td>Dementia</td>
+      <td>Dementia</td>
+      <td>Dementia</td>
+      <td>-</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>La tabla muestra la progresión longitudinal del diagnóstico clínico (<strong>DX</strong>) en cada participante (<strong>sujeto_id</strong>) a lo largo de las distintas visitas (<strong>VISCODE</strong>), que corresponden a intervalos de seguimiento de 0, 6, 12, 18, 24 y 36 meses.</p>
+<p>En la mayoría de los casos, los sujetos inician el estudio con un diagnóstico de <strong>deterioro cognitivo leve (MCI)</strong>, que representa una etapa intermedia entre el envejecimiento cognitivo normal y la demencia. Sin embargo, conforme avanzan las visitas, se observa un número considerable de transiciones hacia el diagnóstico de <strong>demencia (Dementia)</strong>, lo que indica un deterioro progresivo en el estado cognitivo de varios participantes.</p>
+<p>Este patrón es evidente en múltiples sujetos (por ejemplo, <em>007_S_0101</em>, <em>123_S_0108</em>), quien presenta un cambio de MCI a demencia a partir de las visitas correspondientes a los 18 o 24 meses. Dichas transiciones son indicativas del curso clínico esperado en poblaciones con riesgo de Alzheimer, donde la progresión suele manifestarse gradualmente en un periodo de dos a tres años.</p>
+<p>No obstante, también se identifican participantes que <strong>mantienen un diagnóstico estable de MCI</strong> durante todo el seguimiento (como <em>014_S_0169</em>, <em>027_S_0116</em> o <em>035_S_0033</em>), lo que sugiere una evolución más lenta o incluso una posible estabilización del deterioro cognitivo.</p>
+<p>Asimismo, se observan <strong>ausencias de registro (“–”)</strong> en algunas visitas, lo que puede deberse a pérdidas de seguimiento, datos faltantes o retiro de los sujetos del estudio, un aspecto común en estudios longitudinales de larga duración.</p>
+<p>En conjunto, los datos reflejan la heterogeneidad en la evolución clínica de los pacientes con deterioro cognitivo leve: mientras algunos permanecen estables, otros progresan hacia demencia en distintos puntos del seguimiento.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">MRI - Deep learning solutions fot dementia Disease prediction</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="3_PRO_images.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><strong>PREPROCESAMIENTO DE IMÁGENES</strong></p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descripcion-del-conjunto-de-datos"><strong>1. Descripción del conjunto de datos</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#propiedades-tecnicas-de-las-imagenes"><strong>2. Propiedades técnicas de las imágenes</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sobre-el-paciente"><strong>3. Sobre el paciente</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#progresion-clinica"><strong>4. Progresión clínica</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-bivariado"><strong>5. Análisis Bivariado</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evolucion-del-diagnostico-por-visita"><strong>6. Evolución del Diagnostico por Visita</strong></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Daniella Guerra & Tawny Torres
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
