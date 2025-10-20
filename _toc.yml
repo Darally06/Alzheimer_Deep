@@ -4,4 +4,5 @@
 format: jb-book
 root: intro
 chapters:
-- file: EDA
+- file: 2_EDA
+- file: 3_PRO_images
