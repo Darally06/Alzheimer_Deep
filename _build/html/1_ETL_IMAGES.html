@@ -1,0 +1,1237 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ETL -IMAGES &#8212; Alzheimer</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '1_ETL_IMAGES';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Alzheimer</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    MRI - Deep learning solutions fot dementia Disease prediction
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2_EDA.html"><em><strong>Análisis Exploratorio de Datos</strong></em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="3_PRO_images.html"><strong>PREPROCESAMIENTO DE IMÁGENES</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Models_IMAGES.html"><strong>Modelos para imágenes</strong></a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F1_ETL_IMAGES.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/1_ETL_IMAGES.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>ETL -IMAGES</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="etl-images">
+<h1><strong>ETL -IMAGES</strong><a class="headerlink" href="#etl-images" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># [Config] Librerías</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">nibabel</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">nibabel</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># [Config] Rutas</span>
+<span class="n">base_dir</span>  <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;C:\Users\Hp\MACHINE\MRI\DATA&quot;</span>
+<span class="n">output_dir</span>  <span class="o">=</span> <span class="s2">&quot;../Datos/IMAGES&quot;</span>
+<span class="n">dcm2niix_path</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;C:\Users\Hp\dcm2niix_win\dcm2niix.exe&quot;</span>
+
+<span class="n">df_clinical</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../Datos/Clinical/ADNIMERGE.csv&quot;</span><span class="p">,</span> <span class="n">low_memory</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Atributos clínicos considerados</span>
+<span class="n">atributes</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># Identificación</span>
+    <span class="s2">&quot;PTID&quot;</span><span class="p">,</span><span class="s2">&quot;VISCODE&quot;</span><span class="p">,</span><span class="s2">&quot;EXAMDATE&quot;</span><span class="p">,</span><span class="s2">&quot;DX&quot;</span><span class="p">,</span>
+    <span class="c1"># Demografía</span>
+    <span class="s2">&quot;AGE&quot;</span><span class="p">,</span><span class="s2">&quot;PTGENDER&quot;</span><span class="p">,</span><span class="s2">&quot;PTEDUCAT&quot;</span><span class="p">,</span>
+    <span class="c1"># Genética</span>
+    <span class="s2">&quot;APOE4&quot;</span><span class="p">,</span>
+    <span class="c1"># Cognitivas</span>
+    <span class="s2">&quot;CDRSB&quot;</span><span class="p">,</span><span class="s2">&quot;MMSE&quot;</span><span class="p">,</span><span class="s2">&quot;ADAS13&quot;</span><span class="p">,</span><span class="s2">&quot;FAQ&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;RAVLT_immediate&quot;</span><span class="p">,</span><span class="s2">&quot;RAVLT_learning&quot;</span><span class="p">,</span><span class="s2">&quot;RAVLT_forgetting&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;DIGITSCOR&quot;</span><span class="p">,</span><span class="s2">&quot;TRABSCOR&quot;</span><span class="p">,</span>
+    <span class="c1"># MRI volumétricos</span>
+    <span class="s2">&quot;Ventricles&quot;</span><span class="p">,</span><span class="s2">&quot;Hippocampus&quot;</span><span class="p">,</span><span class="s2">&quot;WholeBrain&quot;</span><span class="p">,</span><span class="s2">&quot;Entorhinal&quot;</span><span class="p">,</span><span class="s2">&quot;Fusiform&quot;</span><span class="p">,</span><span class="s2">&quot;MidTemp&quot;</span><span class="p">,</span><span class="s2">&quot;ICV&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+<span class="n">df_clinical</span> <span class="o">=</span> <span class="n">df_clinical</span><span class="p">[</span><span class="n">atributes</span><span class="p">]</span>
+<span class="n">df_clinical</span><span class="p">[</span><span class="s2">&quot;EXAMDATE&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df_clinical</span><span class="p">[</span><span class="s2">&quot;EXAMDATE&quot;</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># [Función] Convertir DICOM -&gt; NifTI</span>
+<span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">base_dir</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.dcm&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">):</span>
+        <span class="n">rel_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">relpath</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">base_dir</span><span class="p">)</span>
+        <span class="n">out_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">rel_path</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">out_path</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">dcm2niix_path</span><span class="p">,</span>
+            <span class="s2">&quot;-z&quot;</span><span class="p">,</span> <span class="s2">&quot;n&quot;</span><span class="p">,</span>       <span class="c1"># ❌ No comprimir (.nii en lugar de .nii.gz)</span>
+            <span class="s2">&quot;-b&quot;</span><span class="p">,</span> <span class="s2">&quot;n&quot;</span><span class="p">,</span>       <span class="c1"># ❌ No crear JSON</span>
+            <span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="n">out_path</span><span class="p">,</span>  <span class="c1"># 📁 Carpeta de salida</span>
+            <span class="s2">&quot;-f&quot;</span><span class="p">,</span> <span class="s2">&quot;%p_</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>   <span class="c1"># 🧩 Nombre del archivo (protocolo_series)</span>
+            <span class="n">root</span>             <span class="c1"># 📂 Carpeta de entrada con los DICOM</span>
+        <span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;📦 Convirtiendo: </span><span class="si">{</span><span class="n">root</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Conversión DICOM → NIfTI completada.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># [] Guardar atributos de las imágenes</span>
+<span class="n">records</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">output_dir</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.nii&quot;</span><span class="p">):</span>
+            <span class="n">full_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">file</span><span class="p">))</span>
+
+            <span class="c1"># 🧩 Extraer ID del sujeto</span>
+            <span class="n">match_id</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(\d</span><span class="si">{3}</span><span class="s1">_S_\d</span><span class="si">{4}</span><span class="s1">)&#39;</span><span class="p">,</span> <span class="n">full_path</span><span class="p">)</span>
+            <span class="n">sujeto_id</span> <span class="o">=</span> <span class="n">match_id</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">match_id</span> <span class="k">else</span> <span class="kc">None</span>
+
+            <span class="c1"># 🗓️ Extraer fecha del estudio (YYYY-MM-DD)</span>
+            <span class="n">match_fecha</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(\d</span><span class="si">{4}</span><span class="s1">-\d</span><span class="si">{2}</span><span class="s1">-\d</span><span class="si">{2}</span><span class="s1">)&#39;</span><span class="p">,</span> <span class="n">full_path</span><span class="p">)</span>
+            <span class="n">fecha</span> <span class="o">=</span> <span class="n">match_fecha</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">match_fecha</span> <span class="k">else</span> <span class="kc">None</span>
+
+            <span class="c1"># Leer metadatos del NIfTI</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">img</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">full_path</span><span class="p">)</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">()</span>
+
+                <span class="n">header</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">header</span>
+                <span class="n">shape</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span>
+                <span class="n">voxel_size</span> <span class="o">=</span> <span class="n">header</span><span class="o">.</span><span class="n">get_zooms</span><span class="p">()</span>
+                <span class="n">voxel_volume</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">voxel_size</span><span class="p">)</span>
+                <span class="n">total_volume</span> <span class="o">=</span> <span class="n">voxel_volume</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+                <span class="n">datatype</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">header</span><span class="o">.</span><span class="n">get_data_dtype</span><span class="p">())</span>
+                <span class="n">mean_intensity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+                <span class="n">std_intensity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+                <span class="n">orientation</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">aff2axcodes</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">affine</span><span class="p">)</span>
+                <span class="n">units</span> <span class="o">=</span> <span class="n">header</span><span class="o">.</span><span class="n">get_xyzt_units</span><span class="p">()</span>
+
+                <span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">([</span>
+                    <span class="n">sujeto_id</span><span class="p">,</span> <span class="n">fecha</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">voxel_size</span><span class="p">,</span> <span class="n">datatype</span><span class="p">,</span>
+                    <span class="n">voxel_volume</span><span class="p">,</span> <span class="n">total_volume</span><span class="p">,</span> <span class="n">mean_intensity</span><span class="p">,</span> <span class="n">std_intensity</span><span class="p">,</span> <span class="n">orientation</span><span class="p">,</span> <span class="n">units</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">full_path</span>
+                <span class="p">])</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;⚠️ Error leyendo </span><span class="si">{</span><span class="n">file</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">df_images</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">records</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span>
+    <span class="s2">&quot;sujeto_id&quot;</span><span class="p">,</span> <span class="s2">&quot;fecha_imagen&quot;</span><span class="p">,</span> <span class="s2">&quot;shape&quot;</span><span class="p">,</span> <span class="s2">&quot;voxel_size&quot;</span><span class="p">,</span> <span class="s2">&quot;datatype&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;voxel_volume_mm3&quot;</span><span class="p">,</span> <span class="s2">&quot;total_volume&quot;</span><span class="p">,</span> <span class="s2">&quot;mean_intensity&quot;</span><span class="p">,</span> <span class="s2">&quot;std_intensity&quot;</span><span class="p">,</span> <span class="s2">&quot;orientation&quot;</span><span class="p">,</span> <span class="s2">&quot;units&quot;</span><span class="p">,</span> <span class="s2">&quot;archivo&quot;</span><span class="p">,</span> <span class="s2">&quot;ruta&quot;</span>
+<span class="p">])</span>
+
+<span class="c1"># Convertir fecha a tipo datetime</span>
+<span class="n">df_images</span><span class="p">[</span><span class="s2">&quot;fecha_imagen&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df_images</span><span class="p">[</span><span class="s2">&quot;fecha_imagen&quot;</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;En total </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_images</span><span class="p">)</span><span class="si">}</span><span class="s2"> imágenes fueron cargadas correctamente.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">line</span> <span class="mi">29</span>
+<span class="g g-Whitespace">     </span><span class="mi">27</span> <span class="n">datatype</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">header</span><span class="o">.</span><span class="n">get_data_dtype</span><span class="p">())</span>
+<span class="g g-Whitespace">     </span><span class="mi">28</span> <span class="n">mean_intensity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">29</span> <span class="n">std_intensity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">30</span> <span class="n">orientation</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">aff2axcodes</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">affine</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">31</span> <span class="n">units</span> <span class="o">=</span> <span class="n">header</span><span class="o">.</span><span class="n">get_xyzt_units</span><span class="p">()</span>
+
+<span class="nn">File ~\anaconda3\envs\MACHINE\lib\site-packages\numpy\_core\fromnumeric.py:4062,</span> in <span class="ni">std</span><span class="nt">(a, axis, dtype, out, ddof, keepdims, where, mean, correction)</span>
+<span class="g g-Whitespace">   </span><span class="mi">4060</span>         <span class="k">pass</span>
+<span class="g g-Whitespace">   </span><span class="mi">4061</span>     <span class="k">else</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">4062</span>         <span class="k">return</span> <span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="n">ddof</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">4064</span> <span class="k">return</span> <span class="n">_methods</span><span class="o">.</span><span class="n">_std</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="n">ddof</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">4065</span>                      <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File ~\anaconda3\envs\MACHINE\lib\site-packages\numpy\_core\_methods.py:223,</span> in <span class="ni">_std</span><span class="nt">(a, axis, dtype, out, ddof, keepdims, where, mean)</span>
+<span class="g g-Whitespace">    </span><span class="mi">221</span> <span class="k">def</span><span class="w"> </span><span class="nf">_std</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">222</span>          <span class="n">where</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mean</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">223</span>     <span class="n">ret</span> <span class="o">=</span> <span class="n">_var</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="n">ddof</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">224</span>                <span class="n">keepdims</span><span class="o">=</span><span class="n">keepdims</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="n">where</span><span class="p">,</span> <span class="n">mean</span><span class="o">=</span><span class="n">mean</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">226</span>     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="n">mu</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">227</span>         <span class="n">ret</span> <span class="o">=</span> <span class="n">um</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">ret</span><span class="p">)</span>
+
+<span class="nn">File ~\anaconda3\envs\MACHINE\lib\site-packages\numpy\_core\_methods.py:191,</span> in <span class="ni">_var</span><span class="nt">(a, axis, dtype, out, ddof, keepdims, where, mean)</span>
+<span class="g g-Whitespace">    </span><span class="mi">186</span>         <span class="n">arrmean</span> <span class="o">=</span> <span class="n">arrmean</span> <span class="o">/</span> <span class="n">rcount</span>
+<span class="g g-Whitespace">    </span><span class="mi">188</span> <span class="c1"># Compute sum of squared deviations from mean</span>
+<span class="g g-Whitespace">    </span><span class="mi">189</span> <span class="c1"># Note that x may not be inexact and that we need it to be an array,</span>
+<span class="g g-Whitespace">    </span><span class="mi">190</span> <span class="c1"># not a scalar.</span>
+<span class="ne">--&gt; </span><span class="mi">191</span> <span class="n">x</span> <span class="o">=</span> <span class="n">asanyarray</span><span class="p">(</span><span class="n">arr</span> <span class="o">-</span> <span class="n">arrmean</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">193</span> <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">arr</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="p">(</span><span class="n">nt</span><span class="o">.</span><span class="n">floating</span><span class="p">,</span> <span class="n">nt</span><span class="o">.</span><span class="n">integer</span><span class="p">)):</span>
+<span class="g g-Whitespace">    </span><span class="mi">194</span>     <span class="n">x</span> <span class="o">=</span> <span class="n">um</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">x</span><span class="p">)</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Sujetos con más de 7 vistas</span>
+<span class="n">visitas_clinicas</span> <span class="o">=</span> <span class="n">df_clinical</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;PTID&quot;</span><span class="p">)[</span><span class="s2">&quot;VISCODE&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
+<span class="n">imagenes_por_sujeto</span> <span class="o">=</span> <span class="n">df_images</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;sujeto_id&quot;</span><span class="p">)[</span><span class="s2">&quot;fecha_imagen&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+<span class="n">imagenes_por_sujeto</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>sujeto_id
+027_S_0307    12
+023_S_0126     8
+014_S_0169     8
+032_S_0214     8
+032_S_0187     8
+Name: fecha_imagen, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Merge imágenes con información del examen</span>
+
+<span class="n">df_images_sorted</span> <span class="o">=</span> <span class="n">df_images</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s2">&quot;sujeto_id&quot;</span><span class="p">,</span> <span class="s2">&quot;fecha_imagen&quot;</span><span class="p">])</span>
+<span class="n">df_clinical_sorted</span> <span class="o">=</span> <span class="n">df_clinical</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s2">&quot;PTID&quot;</span><span class="p">,</span> <span class="s2">&quot;EXAMDATE&quot;</span><span class="p">])</span>
+<span class="n">grupos_img</span> <span class="o">=</span> <span class="n">df_images_sorted</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;sujeto_id&quot;</span><span class="p">)</span>
+<span class="n">grupos_clin</span> <span class="o">=</span> <span class="n">df_clinical_sorted</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;PTID&quot;</span><span class="p">)</span>
+<span class="n">asignaciones</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># Iterar por sujeto</span>
+<span class="k">for</span> <span class="n">sujeto</span> <span class="ow">in</span> <span class="n">df_images_sorted</span><span class="p">[</span><span class="s2">&quot;sujeto_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
+    <span class="n">imgs</span> <span class="o">=</span> <span class="n">grupos_img</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="n">sujeto</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">clin</span> <span class="o">=</span> <span class="n">grupos_clin</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="n">sujeto</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">imgs</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">clin</span><span class="p">))</span>
+    
+    <span class="n">imgs</span> <span class="o">=</span> <span class="n">imgs</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">clin</span> <span class="o">=</span> <span class="n">clin</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">imgs</span><span class="p">[</span><span class="s2">&quot;VISCODE&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">clin</span><span class="p">[</span><span class="s2">&quot;VISCODE&quot;</span><span class="p">]</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Sujeto: </span><span class="si">{</span><span class="n">sujeto</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+        <span class="s2">&quot;VISCODE&quot;</span><span class="p">:</span> <span class="n">imgs</span><span class="p">[</span><span class="s2">&quot;VISCODE&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;fecha_imagen&quot;</span><span class="p">:</span> <span class="n">imgs</span><span class="p">[</span><span class="s2">&quot;fecha_imagen&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;EXAMDATE&quot;</span><span class="p">:</span> <span class="n">clin</span><span class="p">[</span><span class="s2">&quot;EXAMDATE&quot;</span><span class="p">]</span>
+    <span class="p">}))</span>
+
+    <span class="n">asignaciones</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">imgs</span><span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">asignaciones</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+    <span class="n">df_clinical</span><span class="p">,</span>
+    <span class="n">left_on</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sujeto_id&quot;</span><span class="p">,</span> <span class="s2">&quot;VISCODE&quot;</span><span class="p">],</span>
+    <span class="n">right_on</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;PTID&quot;</span><span class="p">,</span> <span class="s2">&quot;VISCODE&quot;</span><span class="p">],</span>
+    <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span>  <span class="c1"># Usamos left para conservar todas las imágenes</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sujeto: 007_S_0101
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2005-12-20 2006-01-04
+1     m06   2006-07-07 2006-07-06
+2     m12   2007-01-29 2007-01-29
+3     m18   2007-07-11 2007-07-11
+4     m24   2007-12-18 2007-12-12
+5     m30   2008-12-23 2008-07-18
+6     m36   2010-01-28 2008-12-23
+
+Sujeto: 007_S_0128
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2006-01-16 2006-02-06
+1     m06   2006-08-14 2006-08-14
+2     m12   2007-02-15 2007-02-15
+3     m18   2007-08-20 2007-08-20
+4     m24   2008-02-07 2008-02-07
+5     m30   2009-02-12 2008-08-20
+
+Sujeto: 007_S_0249
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2006-03-02 2006-03-14
+1     m06   2006-09-27 2006-09-26
+2     m12   2007-04-04 2007-04-03
+3     m18   2007-10-03 2007-10-03
+4     m24   2008-04-01 2008-03-31
+5     m30   2009-03-12 2008-10-01
+6     m36   2010-04-15 2009-03-11
+
+Sujeto: 013_S_0240
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2006-03-20 2006-04-05
+1     m06   2007-04-12 2006-10-25
+2     m12   2007-10-24 2007-04-02
+3     m18   2008-04-24 2007-10-31
+
+Sujeto: 014_S_0169
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2006-02-07 2006-02-16
+1     m06   2006-08-24 2006-08-24
+2     m12   2007-02-22 2007-02-22
+3     m18   2007-08-30 2007-08-30
+4     m24   2008-02-28 2008-02-28
+5     m30   2009-02-23 2008-09-16
+6     m36   2010-02-04 2009-02-24
+7     m42   2011-03-03 2009-08-24
+
+Sujeto: 018_S_0057
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2005-11-17 2006-01-06
+1     m06   2006-08-18 2006-08-18
+2     m12   2007-01-05 2007-01-05
+3     m18   2007-08-21 2007-08-21
+4     m24   2008-02-01 2008-02-01
+
+Sujeto: 018_S_0080
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2005-12-29 2006-01-13
+1     m06   2006-07-11 2006-07-19
+2     m12   2007-01-11 2007-01-09
+
+Sujeto: 018_S_0087
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2005-12-22 2006-02-01
+1     m06   2005-12-22 2006-08-21
+2     m12   2006-08-21 2007-02-09
+3     m18   2007-02-09 2007-08-01
+
+Sujeto: 018_S_0142
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2006-01-19 2006-02-17
+1     m06   2006-08-25 2006-08-23
+2     m12   2007-02-16 2007-02-16
+3     m18   2007-08-09 2007-08-09
+4     m24   2009-02-11 2008-03-03
+5     m30   2010-05-17 2008-08-20
+
+Sujeto: 018_S_0155
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2006-02-23 2006-03-23
+1     m06   2006-09-21 2006-09-19
+2     m12   2007-03-20 2007-03-20
+3     m18   2007-09-13 2007-09-13
+4     m24   2008-03-06 2008-03-06
+5     m30   2009-03-20 2008-10-06
+
+Sujeto: 021_S_0141
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2006-01-23 2006-02-22
+1     m06   2007-02-22 2006-08-08
+2     m12   2007-08-06 2007-02-22
+3     m18   2008-02-29 2007-08-06
+4     m24   2009-02-24 2008-02-29
+5     m30   2010-02-22 2008-09-09
+
+Sujeto: 021_S_0231
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2006-02-28 2006-03-16
+1     m06   2006-09-12 2006-09-12
+2     m12   2007-03-21 2007-03-21
+3     m18   2007-09-19 2007-09-19
+4     m24   2008-03-12 2008-03-12
+5     m36   2008-09-04 2008-09-04
+
+Sujeto: 021_S_0273
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2006-03-14 2006-04-05
+1     m06   2006-10-06 2006-10-06
+2     m12   2007-05-29 2007-05-15
+3     m18   2007-10-05 2007-10-05
+4     m24   2008-04-01 2008-04-01
+5     m30   2009-04-07 2008-10-13
+
+Sujeto: 021_S_0276
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2006-03-17 2006-03-29
+1     m06   2006-09-29 2006-09-29
+2     m12   2007-04-04 2007-03-29
+3     m18   2007-10-04 2007-10-04
+4     m24   2008-03-13 2008-03-13
+5     m30   2009-03-30 2008-10-01
+6     m36   2010-03-30 2009-03-30
+
+Sujeto: 022_S_0004
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2005-09-22 2005-11-08
+1     m06   2006-05-25 2006-05-02
+2     m12   2006-11-28 2006-11-14
+3     m18   2007-05-25 2007-05-14
+4     m30   2008-12-09 2008-05-08
+
+Sujeto: 023_S_0042
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2005-10-31 2005-11-10
+1     m06   2006-05-03 2006-05-02
+2     m12   2006-11-09 2006-11-09
+3     m18   2007-06-08 2007-05-10
+4     m24   2007-12-03 2007-11-30
+5     m30   2008-12-05 2008-06-24
+6     m36   2010-03-18 2008-12-05
+
+Sujeto: 023_S_0126
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2006-01-19 2006-02-16
+1     m06   2006-02-08 2006-08-08
+2     m12   2006-08-08 2007-02-22
+3     m18   2007-03-21 2007-08-14
+4     m24   2007-08-14 2008-02-29
+5     m30   2008-02-29 2008-10-23
+6     m36   2009-03-03 2009-03-03
+7     m42   2010-03-04 2009-08-25
+
+Sujeto: 027_S_0116
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2006-01-27 2006-02-15
+1     m06   2006-09-06 2006-08-30
+2     m12   2007-02-07 2007-02-06
+3     m18   2007-08-01 2007-08-08
+4     m24   2008-02-18 2008-02-13
+5     m30   2009-02-23 2008-08-18
+6     m36   2010-02-18 2009-02-26
+
+Sujeto: 027_S_0179
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2007-03-23 2006-03-10
+1     m06   2007-09-17 2006-09-14
+2     m12   2008-03-04 2007-03-15
+3     m18   2009-03-10 2007-09-10
+
+Sujeto: 027_S_0256
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2006-10-06 2006-04-05
+1     m06   2007-04-09 2006-10-04
+2     m12   2007-10-08 2007-04-03
+3     m18   2008-04-09 2007-10-09
+4     m24   2009-04-06 2008-04-07
+5     m30   2010-04-15 2008-10-16
+6     m36   2011-04-08 2009-04-01
+
+Sujeto: 027_S_0307
+   VISCODE fecha_imagen   EXAMDATE
+0       bl   2006-04-06 2006-04-28
+1      m06   2006-05-11 2006-10-27
+2      m12   2006-10-20 2007-05-01
+3      m18   2006-10-20 2007-11-07
+4      m24   2007-05-01 2008-04-29
+5      m30   2007-05-07 2008-10-30
+6      m36   2007-11-14 2009-04-17
+7      m42   2008-04-16 2009-11-13
+8      m48   2008-04-16 2010-05-03
+9      m54   2009-04-06 2010-11-22
+10     m60   2010-05-10 2011-05-10
+11     m66   2011-05-05 2011-11-04
+
+Sujeto: 032_S_0187
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2006-02-13 2006-02-27
+1     m06   2006-03-14 2006-08-17
+2     m12   2006-08-24 2007-03-01
+3     m18   2006-10-16 2007-08-23
+4     m24   2007-03-08 2008-02-28
+
+Sujeto: 032_S_0214
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2006-02-20 2006-03-06
+1     m06   2006-09-25 2006-09-18
+2     m12   2007-03-19 2007-03-23
+3     m18   2007-10-25 2007-09-13
+4     m24   2008-04-29 2008-03-21
+5     m30   2009-02-26 2008-10-16
+6     m36   2010-07-06 2009-02-23
+7     m42   2011-04-21 2010-03-31
+
+Sujeto: 035_S_0033
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2005-11-22 2005-12-09
+1     m06   2006-05-30 2006-05-26
+2     m12   2006-12-14 2006-12-14
+3     m18   2007-06-14 2007-06-14
+4     m24   2007-12-05 2007-11-29
+5     m36   2009-01-09 2009-01-09
+
+Sujeto: 035_S_0204
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2006-02-14 2006-02-23
+1     m06   2006-09-21 2006-09-21
+2     m12   2007-02-22 2007-02-22
+3     m18   2008-03-06 2007-08-30
+4     m24   2009-03-05 2008-02-06
+5     m30   2010-02-05 2008-09-26
+
+Sujeto: 035_S_0292
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2006-03-22 2006-04-12
+1     m06   2007-11-08 2006-10-05
+2     m12   2008-04-03 2007-04-25
+3     m18   2009-04-09 2007-11-08
+
+Sujeto: 037_S_0150
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2006-02-01 2006-03-08
+1     m06   2006-09-20 2006-09-20
+2     m12   2007-03-21 2007-03-21
+3     m18   2007-09-12 2007-09-12
+4     m24   2008-02-27 2008-02-27
+5     m30   2009-04-22 2008-09-10
+
+Sujeto: 041_S_0282
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2006-04-19 2006-05-15
+1     m06   2007-02-08 2007-01-09
+2     m12   2007-05-08 2007-05-08
+3     m18   2007-12-06 2007-12-06
+
+Sujeto: 067_S_0038
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2005-11-10 2005-12-15
+1     m06   2006-06-23 2006-06-23
+2     m12   2006-12-07 2006-12-07
+
+Sujeto: 067_S_0077
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2005-12-21 2006-02-08
+1     m06   2006-08-21 2006-08-21
+2     m12   2007-03-05 2007-02-23
+3     m18   2007-08-30 2007-08-30
+4     m24   2008-06-23 2008-06-23
+
+Sujeto: 067_S_0098
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2006-01-30 2006-03-29
+1     m06   2007-01-09 2007-01-09
+2     m12   2007-04-04 2007-04-04
+3     m24   2009-03-26 2008-06-11
+
+Sujeto: 067_S_0176
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2006-04-03 2006-05-09
+1     m06   2006-12-05 2006-12-05
+2     m12   2007-05-22 2007-05-22
+3     m24   2008-06-19 2008-06-19
+4     m30   2009-05-04 2008-11-20
+
+Sujeto: 098_S_0160
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2006-09-02 2006-02-14
+1     m06   2007-02-19 2006-10-10
+2     m12   2007-08-18 2007-03-29
+3     m18   2008-02-23 2007-08-14
+4     m24   2009-02-22 2008-02-25
+5     m30   2010-02-14 2008-08-20
+
+Sujeto: 098_S_0269
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2006-03-04 2006-04-12
+1     m06   2006-10-22 2006-10-19
+2     m12   2007-04-14 2007-04-12
+3     m18   2007-10-14 2007-10-05
+4     m24   2009-04-04 2008-04-18
+5     m30   2010-04-17 2008-10-16
+
+Sujeto: 099_S_0051
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2005-11-15 2005-12-08
+1     m06   2006-05-31 2006-05-30
+2     m12   2006-12-26 2006-12-26
+3     m18   2007-07-03 2007-07-03
+4     m24   2007-12-18 2007-12-11
+5     m30   2008-12-16 2008-06-20
+
+Sujeto: 099_S_0054
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2005-11-16 2005-12-16
+1     m06   2006-07-14 2006-07-13
+2     m12   2006-12-28 2006-12-27
+3     m18   2007-07-17 2007-07-17
+4     m24   2007-12-20 2007-12-28
+
+Sujeto: 099_S_0060
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2005-12-07 2006-01-09
+1     m06   2006-07-24 2006-07-24
+2     m12   2007-01-11 2007-01-11
+
+Sujeto: 099_S_0111
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2006-01-18 2006-01-31
+1     m06   2006-08-18 2006-08-21
+2     m12   2007-02-05 2007-02-08
+
+Sujeto: 099_S_0291
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2006-03-09 2006-03-24
+1     m06   2006-09-29 2006-10-04
+2     m12   2008-03-14 2007-04-04
+
+Sujeto: 100_S_0006
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2005-11-15 2005-11-29
+1     m06   2006-06-02 2006-06-01
+2     m12   2006-11-28 2006-11-20
+3     m18   2007-05-22 2007-05-15
+4     m24   2007-11-15 2007-11-08
+5     m30   2007-11-15 2008-06-12
+6     m36   2009-04-21 2008-12-08
+
+Sujeto: 100_S_0296
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2006-04-03 2006-04-25
+1     m06   2006-10-24 2006-10-19
+2     m12   2007-10-09 2007-04-17
+3     m18   2008-06-30 2007-10-09
+4     m24   2011-05-05 2008-04-15
+
+Sujeto: 123_S_0108
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2006-02-01 2006-02-14
+1     m06   2006-08-08 2006-08-08
+2     m12   2007-02-22 2007-02-22
+3     m18   2007-08-09 2007-08-09
+4     m24   2008-02-25 2008-02-26
+5     m30   2009-02-12 2008-08-25
+6     m36   2010-02-25 2009-02-12
+
+Sujeto: 128_S_0188
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2006-02-06 2006-02-22
+1     m06   2006-09-08 2006-08-09
+2     m12   2009-05-22 2007-02-08
+
+Sujeto: 128_S_0200
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2006-02-13 2006-03-07
+1     m06   2006-09-14 2006-09-21
+2     m12   2009-06-15 2007-03-16
+3     m18   2010-11-12 2007-08-31
+
+Sujeto: 128_S_0225
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2006-02-15 2006-03-08
+1     m06   2006-09-20 2006-09-18
+2     m12   2007-02-27 2007-03-05
+3     m18   2007-09-12 2007-08-30
+4     m24   2008-03-19 2008-03-17
+5     m30   2009-08-26 2008-11-10
+6     m36   2010-11-03 2009-09-08
+
+Sujeto: 128_S_0258
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2006-04-06 2006-05-02
+1     m06   2006-10-20 2006-11-02
+2     m12   2007-05-03 2007-04-27
+3     m18   2007-11-13 2007-10-26
+4     m24   2008-06-09 2008-05-08
+
+Sujeto: 130_S_0102
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2005-12-28 2006-01-13
+1     m06   2006-07-27 2006-07-13
+2     m12   2007-01-17 2007-01-12
+3     m18   2007-07-16 2007-07-13
+4     m24   2008-01-16 2008-01-18
+
+Sujeto: 130_S_0285
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2006-03-22 2006-04-03
+1     m06   2006-09-26 2006-09-28
+2     m12   2007-03-26 2007-04-06
+3     m18   2007-10-15 2007-10-05
+4     m24   2008-04-01 2008-03-24
+5     m30   2010-04-16 2008-10-21
+6     m36   2011-04-01 2009-04-06
+
+Sujeto: 130_S_0289
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2006-03-13 2006-03-31
+1     m06   2006-09-27 2006-09-29
+2     m12   2007-03-19 2007-03-23
+3     m18   2007-10-10 2007-10-01
+4     m24   2010-05-10 2008-04-03
+5     m30   2011-04-22 2008-09-30
+
+Sujeto: 136_S_0107
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2006-02-17 2006-02-27
+1     m06   2006-08-29 2006-08-28
+2     m12   2007-02-26 2007-02-26
+3     m18   2007-09-10 2007-09-10
+4     m24   2008-02-25 2008-02-25
+5     m30   2009-06-02 2008-09-02
+6     m36   2010-06-29 2009-06-02
+
+Sujeto: 136_S_0195
+  VISCODE fecha_imagen   EXAMDATE
+0      bl   2006-03-13 2006-04-04
+1     m06   2006-10-02 2006-10-02
+2     m12   2007-03-27 2007-03-26
+3     m18   2007-09-24 2007-09-24
+4     m24   2009-04-03 2008-03-25
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>No todas las fechas de las imágenes coinciden con el EXAMDATE</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Lista de VISCODE válidos hasta mes 36</span>
+<span class="n">visitas_validas</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;bl&quot;</span><span class="p">,</span> <span class="s2">&quot;m06&quot;</span><span class="p">,</span> <span class="s2">&quot;m12&quot;</span><span class="p">,</span> <span class="s2">&quot;m18&quot;</span><span class="p">,</span> <span class="s2">&quot;m24&quot;</span><span class="p">,</span> <span class="s2">&quot;m30&quot;</span><span class="p">,</span> <span class="s2">&quot;m36&quot;</span><span class="p">]</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;VISCODE&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">visitas_validas</span><span class="p">)]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Se tienen </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> imágenes con su registro.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Se tienen 279 imágenes con su registro.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Contar vistas por pacientes</span>
+<span class="n">tabla_visitas</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">df</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">valor</span><span class="o">=</span><span class="s2">&quot;O&quot;</span><span class="p">)</span>  <span class="c1"># marcamos presencia</span>
+    <span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">&quot;sujeto_id&quot;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;VISCODE&quot;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">&quot;valor&quot;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s2">&quot;first&quot;</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">sort_index</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">tabla_visitas</span>
+<span class="n">conteo_visitas</span> <span class="o">=</span> <span class="p">(</span><span class="n">tabla_visitas</span> <span class="o">==</span> <span class="s2">&quot;O&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">resumen_visitas</span> <span class="o">=</span> <span class="n">conteo_visitas</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+<span class="n">tabla_resumen</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;Vistas&quot;</span><span class="p">:</span> <span class="n">resumen_visitas</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+    <span class="s2">&quot;Pacientes&quot;</span><span class="p">:</span> <span class="n">resumen_visitas</span><span class="o">.</span><span class="n">values</span>
+<span class="p">})</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Resumen de número de visitas por paciente:&quot;</span><span class="p">)</span>
+<span class="n">tabla_resumen</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Resumen de número de visitas por paciente:
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Vistas</th>
+      <th>Pacientes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>3</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>5</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>6</td>
+      <td>13</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>7</td>
+      <td>15</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;../Datos/Clinical/ADNI_Images.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;Data/ADNI_Images.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Daniella Guerra & Tawny Torres
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
